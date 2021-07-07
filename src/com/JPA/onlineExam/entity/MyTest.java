@@ -1,13 +1,14 @@
 package com.JPA.onlineExam.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,12 +27,13 @@ public class MyTest {
 	@Column(name = "testLevel")
 	private String testLevel;
 
-	@OneToMany(mappedBy = "test")
-	private List<Question> questionSet = new ArrayList<Question>();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "testId")
+	private List<Question> questionSet;
 
-	public void addQuestion(Question question) {
-		questionSet.add(question);
-	}
+//	public void addQuestion(Question question) {
+//		questionSet.add(question);
+//	}
 
 	public List<Question> getQuestionSet() {
 		return questionSet;
@@ -42,19 +44,19 @@ public class MyTest {
 	}
 
 	// method to generate questions
-	private void generateQuestion() {
-		for (int question = 0; question < questionSet.size(); question++) {
-			System.out.println(questionSet.get(question).getQuestion());
-			int numChoices = questionSet.get(question).getChoices().size();
-
-			// show choices from questions in question set
-
-			for (int choice = 0; choice < numChoices; choice++) {
-				System.out.println((choice + 1) + ":" + questionSet.get(question).getChoices().get(choice));
-			}
-		}
-
-	}
+//	private void generateQuestion() {
+//		for (int question = 0; question < questionSet.size(); question++) {
+//			System.out.println(questionSet.get(question).getQuestion());
+//			int numChoices = questionSet.get(question).getChoices().size();
+//
+//			// show choices from questions in question set
+//
+//			for (int choice = 0; choice < numChoices; choice++) {
+//				System.out.println((choice + 1) + ":" + questionSet.get(question).getChoices().get(choice));
+//			}
+//		}
+//
+//	}
 
 	public int getTestId() {
 		return testId;
