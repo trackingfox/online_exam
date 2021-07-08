@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
-
 import com.JPA.onlineExam.entity.Question;
 import com.JPA.onlineExam.entity.QuestionTemp;
 import com.opencsv.CSVReader;
@@ -17,7 +15,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
 
-public class QuesCsv_Insert {
+public class QuesCsv2db_Insert {
 
 	public List<QuestionTemp> DatacsvToclass1(String filepath) throws IllegalStateException, FileNotFoundException {
 
@@ -100,7 +98,7 @@ public class QuesCsv_Insert {
 		return queslist1;
 	}
 
-	@Test
+//	@Test
 	public void importTodb() throws IllegalStateException, FileNotFoundException {
 
 		// use persistence.xml configuration

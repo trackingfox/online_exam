@@ -43,21 +43,6 @@ public class MyTest {
 		this.questionSet = questionSet;
 	}
 
-	// method to generate questions
-//	private void generateQuestion() {
-//		for (int question = 0; question < questionSet.size(); question++) {
-//			System.out.println(questionSet.get(question).getQuestion());
-//			int numChoices = questionSet.get(question).getChoices().size();
-//
-//			// show choices from questions in question set
-//
-//			for (int choice = 0; choice < numChoices; choice++) {
-//				System.out.println((choice + 1) + ":" + questionSet.get(question).getChoices().get(choice));
-//			}
-//		}
-//
-//	}
-
 	public int getTestId() {
 		return testId;
 	}
