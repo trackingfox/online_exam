@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.junit.Test;
 
 import com.JPA.onlineExam.entity.MyTest;
+import com.JPA.onlineExam.entity.Question;
 
 public class MyTest_csv2db {
 
@@ -28,22 +29,22 @@ public class MyTest_csv2db {
 	//
 //		}
 
-	public MyTest mytest_name_detail() {
-
-		MyTest st = new MyTest();
-		QuesCsv2db_Insert Quescsv = new QuesCsv2db_Insert();
-		// System.out.println(x + " : " + y);
-
-		st.setTestName(testName);
-		st.setQuestionSet(Quescsv.DataDetails());
-
-		// st.setData(null);
-		return st;
-
-	}
+//	public MyTest mytest_name_detail() {
+//
+//		MyTest st = new MyTest();
+//		QuesCsv2db_Insert Quescsv = new QuesCsv2db_Insert();
+//		// System.out.println(x + " : " + y);
+//
+//		st.setTestName(testName);
+//		st.setQuestionSet(Quescsv.DataDetails());
+//
+//		// st.setData(null);
+//		return st;
+//
+//	}
 
 	@Test
-	public void importTodb() {
+	public void generateQuestions() {
 
 		// use persistence.xml configuration
 
@@ -51,20 +52,24 @@ public class MyTest_csv2db {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
-		Query query = em.createQuery(
-				"FROM Data where stockName='A' AND open_price>69 AND  open_price<72 AND Date BETWEEN '2019-01-11' AND '2019-01-17' ");
-		List<Data> results = query.getResultList();
+		Query query = em
+				.createQuery("FROM Question where Qid>=FLOOR(RAND()*(25-10+1))+10 AND Qid<FLOOR(RAND()*(50-10+1))+30 ");
+		List<Question> results = query.getResultList();
 
-		for (Data obj : results) {
-			System.out.println(obj.getDate() + "   " + obj.getHigh_price() + "   " + obj.getLow_price() + "    "
-					+ obj.getOpen_price() + "    " + obj.getClose_price());
+		for (Question obj : results) {
+			System.out.println(obj.getQuestion() + "   " + obj.getChoice_1() + "   " + obj.getChoice_2() + "    "
+					+ obj.getChoice_3() + "    " + obj.getChoice_4());
 
 		}
 
+		MyTest test1 = new MyTest();
+		test1.setQuestionSet(results);
+		test1.setTestName("Full Stack JAVA");
+		test1.setTestLevel("I");
 		// System.out.println(x + " : " + y);
-		MyTest s = this.mytest_name_detail();
+		// MyTest s = this.mytest_name_detail();
 
-		em.merge(s);
+		em.merge(test1);
 
 		em.getTransaction().commit();
 

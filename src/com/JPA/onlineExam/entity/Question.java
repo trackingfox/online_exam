@@ -15,18 +15,18 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int Qid;
-	@Column
+	@Column(length = 3000)
 	private String Question;
 //	private ArrayList<String> choices;
-	@Column
+	@Column(length = 1000)
 	private String choice_1;
-	@Column
+	@Column(length = 1000)
 	private String choice_2;
-	@Column
+	@Column(length = 1000)
 	private String choice_3;
-	@Column
+	@Column(length = 1000)
 	private String choice_4;
-	@Column
+	@Column(length = 1000)
 	private String answer;
 
 //	@ManyToOne
@@ -118,6 +118,12 @@ public class Question {
 
 	public void setChoice_4(String choice_4) {
 		this.choice_4 = choice_4;
+	}
+
+	@Override
+	public String toString() {
+		return "Question [Qid=" + Qid + ", Question=" + Question + ", choice_1=" + choice_1 + ", choice_2=" + choice_2
+				+ ", choice_3=" + choice_3 + ", choice_4=" + choice_4 + ", answer=" + answer + "]";
 	}
 
 }

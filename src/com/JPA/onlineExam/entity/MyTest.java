@@ -8,12 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "test")
+@Table(name = "MyTest")
 public class MyTest {
 
 	@Id
@@ -28,12 +27,11 @@ public class MyTest {
 	private String testLevel;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "testId")
 	private List<Question> questionSet;
 
-//	public void addQuestion(Question question) {
-//		questionSet.add(question);
-//	}
+////	public void addQuestion(Question question) {
+////		questionSet.add(question);
+////	}
 
 	public List<Question> getQuestionSet() {
 		return questionSet;
