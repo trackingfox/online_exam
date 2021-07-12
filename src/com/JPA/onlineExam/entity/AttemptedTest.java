@@ -1,5 +1,7 @@
 package com.JPA.onlineExam.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -24,6 +26,8 @@ public class AttemptedTest extends MyTest {
 
 	@Column(name = "finalScore")
 	private int finalScore;
+
+	private List<Question> questionPaper;
 
 	public String getUser_ans() {
 		return user_ans;

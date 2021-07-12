@@ -42,8 +42,26 @@ public class MyTest_csv2db {
 //		return st;
 //
 //	}
-
 	@Test
+	public void FetchTest() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+
+		Query query = em.createQuery("FROM MyTest where testId=1");
+		List<MyTest> testPaper = query.getResultList();
+		for (MyTest obj : testPaper) {
+			System.out.println(obj.getQuestionSet() + "   " + obj.getTestId() + "   " + obj.getTestName() + "    "
+					+ obj.getTestLevel() + "    ");
+
+		}
+
+		em.close();
+		emf.close();
+
+	}
+
+	// @Test
 	public void generateQuestions() {
 
 		// use persistence.xml configuration
@@ -66,11 +84,11 @@ public class MyTest_csv2db {
 		test1.setQuestionSet(results);
 		test1.setTestName("Full Stack JAVA");
 		test1.setTestLevel("I");
+
 		// System.out.println(x + " : " + y);
 		// MyTest s = this.mytest_name_detail();
 
 		em.merge(test1);
-
 		em.getTransaction().commit();
 
 		em.close();
