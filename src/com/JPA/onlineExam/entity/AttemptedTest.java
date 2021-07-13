@@ -1,25 +1,23 @@
 package com.JPA.onlineExam.entity;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "AttemptedTest")
 public class AttemptedTest extends MyTest {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "testId")
-//	private int testId;
-//
-//	@Column(name = "testName")
-//	private String testName;
-//
-//	@Column(name = "testLevel")
-//	private String testLevel;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "sl_no")
+	private int sl_no;
 
 	@Column(name = "user_ans")
 	private String user_ans;
@@ -27,50 +25,35 @@ public class AttemptedTest extends MyTest {
 	@Column(name = "finalScore")
 	private int finalScore;
 
-	private List<Question> questionPaper;
+	Map<Question, String> hashmap = new HashMap<Question, String>();
 
 	public String getUser_ans() {
 		return user_ans;
 	}
 
 	public void setUser_ans(String user_ans) {
+
 		this.user_ans = user_ans;
 	}
 
-	public int getFinalScore() {
+	// method to calculate finalscore
+	public int calculateFinalScore() {
+		for (Question obj : getQuestionSet()) {
+			if (obj.getAnswer() == user_ans) {
+				finalScore += 1;
+			}
+		}
 		return finalScore;
 	}
 
-	public void setFinalScore(int finalScore) {
-		this.finalScore = finalScore;
-	}
-
-//	public int getTestId() {
-//		return testId;
-//	}
-//
-//	public void setTestId(int testId) {
-//		this.testId = testId;
-//	}
-//
-//	public String getTestName() {
-//		return testName;
-//	}
-//
-//	public void setTestName(String testName) {
-//		this.testName = testName;
-//	}
-//
-//	public String getTestLevel() {
-//		return testLevel;
-//	}
-//
-//	public void setTestLevel(String testLevel) {
-//		this.testLevel = testLevel;
-//	}
-
-	// method to calculate finalscore
-
 	// key value pair for question and answer.
+	public Map testAnswers() {
+		for (Question obj : getQuestionSet()) {
+			hashmap.put(obj, user_ans);
+		}
+
+		return hashmap;
+
+	}
 
 }
