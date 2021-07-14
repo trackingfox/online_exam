@@ -42,7 +42,7 @@ public class MyTest_csv2db {
 //		return st;
 //
 //	}
-	@Test
+	// @Test
 	public void FetchTest() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();
@@ -51,8 +51,11 @@ public class MyTest_csv2db {
 		Query query = em.createQuery("FROM MyTest where testId=1");
 		List<MyTest> testPaper = query.getResultList();
 		for (MyTest obj : testPaper) {
-			System.out.println(obj.getQuestionSet() + "   " + obj.getTestId() + "   " + obj.getTestName() + "    "
-					+ obj.getTestLevel() + "    ");
+			for (Question q : obj.getQuestionSet()) {
+				System.out.println(q.getQuestion() + "        " + q.getChoice_1() + "     " + q.getChoice_2() + "      "
+						+ q.getChoice_3() + "     " + q.getChoice_4());
+			}
+			System.out.println(obj.getTestId() + "   " + obj.getTestName() + "    " + obj.getTestLevel() + "    ");
 
 		}
 
@@ -61,7 +64,7 @@ public class MyTest_csv2db {
 
 	}
 
-	// @Test
+	@Test
 	public void generateQuestions() {
 
 		// use persistence.xml configuration
@@ -69,26 +72,24 @@ public class MyTest_csv2db {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
+		for (int i = 1; i <= 1; i++) {
+			Query query = em.createQuery(
+					"FROM Question where Qid>=FLOOR(RAND()*(25-10+1))+10 AND Qid<FLOOR(RAND()*(50-10+1))+30 ");
+			List<Question> results = query.getResultList();
 
-		Query query = em
-				.createQuery("FROM Question where Qid>=FLOOR(RAND()*(25-10+1))+10 AND Qid<FLOOR(RAND()*(50-10+1))+30 ");
-		List<Question> results = query.getResultList();
+			for (Question obj : results) {
+				System.out.println(obj.getQuestion() + "   " + obj.getChoice_1() + "   " + obj.getChoice_2() + "    "
+						+ obj.getChoice_3() + "    " + obj.getChoice_4());
 
-		for (Question obj : results) {
-			System.out.println(obj.getQuestion() + "   " + obj.getChoice_1() + "   " + obj.getChoice_2() + "    "
-					+ obj.getChoice_3() + "    " + obj.getChoice_4());
+			}
 
+			MyTest test1 = new MyTest();
+			test1.setQuestionSet(results);
+			test1.setTestName("Full Stack JAVA");
+			test1.setTestLevel("I");
+			em.merge(test1);
 		}
 
-		MyTest test1 = new MyTest();
-		test1.setQuestionSet(results);
-		test1.setTestName("Full Stack JAVA");
-		test1.setTestLevel("I");
-
-		// System.out.println(x + " : " + y);
-		// MyTest s = this.mytest_name_detail();
-
-		em.merge(test1);
 		em.getTransaction().commit();
 
 		em.close();

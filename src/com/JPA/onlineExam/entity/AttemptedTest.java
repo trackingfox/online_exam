@@ -4,56 +4,74 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "AttemptedTest")
-public class AttemptedTest extends MyTest {
+public class AttemptedTest {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "sl_no")
 	private int sl_no;
 
-	@Column(name = "user_ans")
-	private String user_ans;
+//	@Column(name = "user_ans")
+//	private char user_ans;
 
 	@Column(name = "finalScore")
 	private int finalScore;
 
-	Map<Question, String> hashmap = new HashMap<Question, String>();
+	@ManyToOne
+	@JoinColumn(name = "testId")
+	private MyTest test;
 
-	public String getUser_ans() {
-		return user_ans;
+	public MyTest getTest() {
+		return test;
 	}
 
-	public void setUser_ans(String user_ans) {
-
-		this.user_ans = user_ans;
+	public void setTest(MyTest test) {
+		this.test = test;
 	}
 
-	// method to calculate finalscore
-	public int calculateFinalScore() {
-		for (Question obj : getQuestionSet()) {
-			if (obj.getAnswer() == user_ans) {
-				finalScore += 1;
-			}
-		}
+	@ElementCollection
+	private Map<Question, Character> questionAnswersSet = new HashMap<Question, Character>();
+
+//	public char getUser_ans() {
+//		return user_ans;
+//	}
+//
+//	public void setUser_ans(char user_ans) {
+//
+//		this.user_ans = user_ans;
+//	}
+
+	public int getFinalScore() {
 		return finalScore;
 	}
 
-	// key value pair for question and answer.
-	public Map testAnswers() {
-		for (Question obj : getQuestionSet()) {
-			hashmap.put(obj, user_ans);
-		}
+	public void setFinalScore(int finalScore) {
+		this.finalScore = finalScore;
+	}
 
-		return hashmap;
+	public Map<Question, Character> getQuestionAnswersSet() {
+		return questionAnswersSet;
+	}
 
+	public void setQuestionAnswersSet(Map<Question, Character> questionAnswersSet) {
+		this.questionAnswersSet = questionAnswersSet;
+	}
+
+	@Override
+	public String toString() {
+		return "AttemptedTest [sl_no=" + sl_no + ", finalScore=" + finalScore + ", test=" + test
+				+ ", questionAnswersSet=" + questionAnswersSet + "]";
 	}
 
 }

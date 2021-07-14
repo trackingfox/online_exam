@@ -1,12 +1,14 @@
 package com.JPA.onlineExam.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Embeddable
 @Entity
 @Table(name = "Question")
 public class Question {

@@ -29,9 +29,21 @@ public class MyTest {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Question> questionSet;
 
+//	@OneToMany
+//	@JoinColumn(name = "testId")
+//	private List<AttemptedTest> testAttempt;
+
 ////	public void addQuestion(Question question) {
 ////		questionSet.add(question);
 ////	}
+
+//	public List<AttemptedTest> getTestAttempt() {
+//		return testAttempt;
+//	}
+//
+//	public void setTestAttempt(List<AttemptedTest> testAttempt) {
+//		this.testAttempt = testAttempt;
+//	}
 
 	public List<Question> getQuestionSet() {
 		return questionSet;
@@ -67,7 +79,8 @@ public class MyTest {
 
 	@Override
 	public String toString() {
-		return "Test [testId=" + testId + ", testName=" + testName + ", testLevel=" + testLevel + "]";
+		return "MyTest [testId=" + testId + ", testName=" + testName + ", testLevel=" + testLevel + ", questionSet="
+				+ questionSet + "]";
 	}
 
 }

@@ -5,8 +5,7 @@
 		<class>com.JPA.onlineExam.entity.Question</class>
 		<class>com.JPA.onlineExam.entity.MyTest</class>
 		<class>com.JPA.onlineExam.entity.AttemptedTest</class>
-		
-		
+			
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test_question?useSSL=false"/>
@@ -15,7 +14,7 @@
 			<property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
-        	<!-- <property name="hibernate.hbm2ddl.auto" value="create "/>   -->
+        	<!--<property name="hibernate.hbm2ddl.auto" value="create "/> -->
         
 		</properties>
 	</persistence-unit>
