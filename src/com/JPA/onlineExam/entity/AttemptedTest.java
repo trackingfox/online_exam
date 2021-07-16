@@ -3,6 +3,7 @@ package com.JPA.onlineExam.entity;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class AttemptedTest {
 	@Column(name = "finalScore")
 	private int finalScore;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "testId")
 	private MyTest test;
 
@@ -70,8 +71,8 @@ public class AttemptedTest {
 
 	@Override
 	public String toString() {
-		return "AttemptedTest [sl_no=" + sl_no + ", finalScore=" + finalScore + ", test=" + test
-				+ ", questionAnswersSet=" + questionAnswersSet + "]";
+		return "AttemptedTest [sl_no=" + sl_no + ", finalScore=" + finalScore + ", questionAnswersSet="
+				+ questionAnswersSet + "]";
 	}
 
 }

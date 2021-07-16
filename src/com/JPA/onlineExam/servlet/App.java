@@ -40,32 +40,11 @@ public class App {
 
 		mytest1.setQuestionSet(queList);
 
-//			SessionFactory sessionFactory = null;
-//			// configures settings from hibernate.cfg.xml
-//			final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-//
-//			try {
-//				sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-//			} catch (Exception ex) {
-//				System.out.println(ex.toString()); // If error display in console
-//				StandardServiceRegistryBuilder.destroy(registry);
-//			}
-//			Session session = sessionFactory.openSession();
-//			session.beginTransaction();
-//			List<Student> studentlist = this.csvToclass();
-//			studentlist.forEach(x -> session.save(x));
-//			session.getTransaction().commit();
-//			session.close();
-
-		// use persistence.xml configuration
+//			
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Test_Question");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-
-//			List<Customer> custlist1 = this.CustomerDetals();
-//			custlist1.forEach(x -> em.persist(x));
-//			custlist1.forEach(x -> em.merge(x));
 
 		em.merge(question1);
 		em.merge(question2);

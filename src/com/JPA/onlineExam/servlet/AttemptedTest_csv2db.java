@@ -44,6 +44,28 @@ public class AttemptedTest_csv2db {
 
 	}
 
+	public MyTest FetchTestpaper1() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+
+		Query query = em.createQuery("FROM MyTest where testId=4");
+		MyTest testPaper = (MyTest) query.getResultList().get(0);
+
+		for (Question q : testPaper.getQuestionSet()) {
+			System.out.println(q.getQuestion() + "        " + q.getChoice_1() + "     " + q.getChoice_2() + "      "
+					+ q.getChoice_3() + "     " + q.getChoice_4());
+		}
+		System.out.println(
+				testPaper.getTestId() + "   " + testPaper.getTestName() + "    " + testPaper.getTestLevel() + "    ");
+
+		em.close();
+		emf.close();
+
+		return testPaper;
+
+	}
+
 //res=res+alphabet[(int)(Math.random()*10%26)];
 
 	// key value pair for question and answer.
@@ -74,6 +96,7 @@ public class AttemptedTest_csv2db {
 
 	public int calculateFinalScore() {
 		List<MyTest> testPaper = FetchTestpaper();
+
 		int finalScore = 0;
 		for (MyTest obj : testPaper) {
 			// user_ans=(int)(Math.random()*(max-min+1)+min);
@@ -97,6 +120,33 @@ public class AttemptedTest_csv2db {
 		}
 
 		return finalScore;
+	}
+
+	public int calculateFinalScore1() {
+		MyTest testPaper = FetchTestpaper1();
+
+		int finalScore = 0;
+
+		// user_ans=(int)(Math.random()*(max-min+1)+min);
+		// System.out.println(obj.toString());
+
+		Map<Question, Character> hashmap = new HashMap<Question, Character>();
+		hashmap = testAnswers();
+
+		// printing the objects of hashmap
+		Set<Map.Entry<Question, Character>> entries = hashmap.entrySet();
+		for (Map.Entry<Question, Character> hm : entries) {
+			String ans = hm.getKey().getAnswer();
+			char user_ans = hm.getValue();
+			String st = Character.toString(user_ans);
+			// System.out.println(x + " : " + y);
+			if (ans.equals(st)) {
+				finalScore += 1;
+			}
+		}
+
+		return finalScore;
+
 	}
 
 	// @Test
@@ -124,6 +174,9 @@ public class AttemptedTest_csv2db {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
+		MyTest test = new MyTest();
+		test = FetchTestpaper1();
+
 		AttemptedTest test2 = new AttemptedTest();
 		int finalScore = calculateFinalScore();
 
@@ -140,6 +193,7 @@ public class AttemptedTest_csv2db {
 
 		test2.setFinalScore(finalScore);
 		test2.setQuestionAnswersSet(hashmap);
+		test2.setTest(test);
 
 		em.merge(test2);
 		em.getTransaction().commit();

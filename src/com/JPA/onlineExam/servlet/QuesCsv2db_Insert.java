@@ -46,7 +46,6 @@ public class QuesCsv2db_Insert {
 			Question cust2 = new Question();
 
 			cust2.setQuestion(cust.getQuestion());
-
 			cust2.setChoice_1(cust.getChoice_1());
 			cust2.setChoice_2(cust.getChoice_2());
 			cust2.setChoice_3(cust.getChoice_3());
