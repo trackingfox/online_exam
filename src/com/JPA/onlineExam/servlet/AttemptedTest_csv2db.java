@@ -26,7 +26,7 @@ public class AttemptedTest_csv2db {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
-		Query query = em.createQuery("FROM MyTest where testId=1");
+		Query query = em.createQuery("FROM MyTest where testId>=1  AND testId<=4");
 		List<MyTest> testPaper = query.getResultList();
 		for (MyTest obj : testPaper) {
 			for (Question q : obj.getQuestionSet()) {
@@ -44,12 +44,12 @@ public class AttemptedTest_csv2db {
 
 	}
 
-	public MyTest FetchTestpaper1() {
+	public MyTest FetchTestpaper1(int ID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
-		Query query = em.createQuery("FROM MyTest where testId=4");
+		Query query = em.createQuery("FROM MyTest where testId=ID");
 		MyTest testPaper = (MyTest) query.getResultList().get(0);
 
 		for (Question q : testPaper.getQuestionSet()) {
@@ -66,72 +66,39 @@ public class AttemptedTest_csv2db {
 
 	}
 
-//res=res+alphabet[(int)(Math.random()*10%26)];
-
 	// key value pair for question and answer.
 	// @Test
-	public Map<Question, Character> testAnswers() {
+	public Map<Question, Character> testAnswers(MyTest testPaper) {
 
 		Map<Question, Character> hashmap = new HashMap<Question, Character>();
 		Random randNum = new Random();
-		List<MyTest> testPaper = FetchTestpaper();
+
 		char user_ans = ' ';
 		char[] alphabet = { 'A', 'B', 'C', 'D' };
 
-		for (MyTest obj : testPaper) {
-			// user_ans=(int)(Math.random()*(max-min+1)+min);
-			System.out.println(obj.toString());
+		// user_ans=(int)(Math.random()*(max-min+1)+min);
+		System.out.println(testPaper.toString());
 
-			List<Question> obj1 = obj.getQuestionSet();
-			for (Question q : obj1) {
-				user_ans = alphabet[(int) (Math.random() * 10 % 4)];
-				hashmap.put(q, user_ans);
-				// System.out.println(q.toString());
-			}
+		List<Question> obj1 = testPaper.getQuestionSet();
+		for (Question q : obj1) {
+			user_ans = alphabet[(int) (Math.random() * 10 % 4)];
+			hashmap.put(q, user_ans);
+			// System.out.println(q.toString());
 		}
 
 		return hashmap;
 
 	}
 
-	public int calculateFinalScore() {
-		List<MyTest> testPaper = FetchTestpaper();
+	public int calculateFinalScore(MyTest testPaper) {
 
 		int finalScore = 0;
-		for (MyTest obj : testPaper) {
-			// user_ans=(int)(Math.random()*(max-min+1)+min);
-			// System.out.println(obj.toString());
-
-			Map<Question, Character> hashmap = new HashMap<Question, Character>();
-			hashmap = testAnswers();
-
-			// printing the objects of hashmap
-			Set<Map.Entry<Question, Character>> entries = hashmap.entrySet();
-			for (Map.Entry<Question, Character> hm : entries) {
-				String ans = hm.getKey().getAnswer();
-				char user_ans = hm.getValue();
-				String st = Character.toString(user_ans);
-				// System.out.println(x + " : " + y);
-				if (ans.equals(st)) {
-					finalScore += 1;
-				}
-			}
-
-		}
-
-		return finalScore;
-	}
-
-	public int calculateFinalScore1() {
-		MyTest testPaper = FetchTestpaper1();
-
-		int finalScore = 0;
-
+		// for (MyTest obj : testPaper) {
 		// user_ans=(int)(Math.random()*(max-min+1)+min);
 		// System.out.println(obj.toString());
-
+		// finalScore = 0;
 		Map<Question, Character> hashmap = new HashMap<Question, Character>();
-		hashmap = testAnswers();
+		hashmap = testAnswers(testPaper);
 
 		// printing the objects of hashmap
 		Set<Map.Entry<Question, Character>> entries = hashmap.entrySet();
@@ -143,14 +110,14 @@ public class AttemptedTest_csv2db {
 			if (ans.equals(st)) {
 				finalScore += 1;
 			}
+
 		}
 
 		return finalScore;
-
 	}
 
 	// @Test
-	public void FetchAttemptedTestPaper() {
+	public List<AttemptedTest> FetchAttemptedTestPaper() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -165,6 +132,7 @@ public class AttemptedTest_csv2db {
 
 		em.close();
 		emf.close();
+		return testPaper;
 	}
 
 	@Test
@@ -174,26 +142,36 @@ public class AttemptedTest_csv2db {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
-		MyTest test = new MyTest();
-		test = FetchTestpaper1();
+		List<MyTest> test = FetchTestpaper();
 
 		AttemptedTest test2 = new AttemptedTest();
-		int finalScore = calculateFinalScore();
 
 		Map<Question, Character> hashmap = new HashMap<Question, Character>();
-		hashmap = testAnswers();
 
-		// printing the objects of hashmap
-		Set<Map.Entry<Question, Character>> entries = hashmap.entrySet();
-		for (Map.Entry<Question, Character> hm : entries) {
-			Question x = hm.getKey();
-			char y = hm.getValue();
-			System.out.println(x + " : " + y);
+		int finalScore = 0;
+
+		//
+
+		for (MyTest test1 : test) {
+
+			if (test1.getTestId() == 1) {
+
+				test2.setTest(test1);
+				finalScore = calculateFinalScore(test1);
+				hashmap = testAnswers(test1);
+				// printing the objects of hashmap
+				Set<Map.Entry<Question, Character>> entries = hashmap.entrySet();
+				for (Map.Entry<Question, Character> hm : entries) {
+					Question x = hm.getKey();
+					char y = hm.getValue();
+					System.out.println(x + " : " + y);
+				}
+
+				test2.setFinalScore(finalScore);
+				test2.setQuestionAnswersSet(hashmap);
+
+			}
 		}
-
-		test2.setFinalScore(finalScore);
-		test2.setQuestionAnswersSet(hashmap);
-		test2.setTest(test);
 
 		em.merge(test2);
 		em.getTransaction().commit();

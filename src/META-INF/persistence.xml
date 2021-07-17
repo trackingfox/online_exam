@@ -5,6 +5,10 @@
 		<class>com.JPA.onlineExam.entity.Question</class>
 		<class>com.JPA.onlineExam.entity.MyTest</class>
 		<class>com.JPA.onlineExam.entity.AttemptedTest</class>
+		<class>com.JPA.onlineExam.entity.User</class>
+		<class>com.JPA.onlineExam.entity.Topics</class>
+		<class>com.JPA.onlineExam.entity.Score</class>
+		<class>com.JPA.onlineExam.entity.DailyActivity</class>
 			
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
@@ -14,7 +18,7 @@
 			<property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
-        	<!--<property name="hibernate.hbm2ddl.auto" value="create "/> -->
+        	<property name="hibernate.hbm2ddl.auto" value="create "/>
         
 		</properties>
 	</persistence-unit>
