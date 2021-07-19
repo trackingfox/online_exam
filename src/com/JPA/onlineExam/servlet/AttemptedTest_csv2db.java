@@ -44,6 +44,13 @@ public class AttemptedTest_csv2db {
 
 	}
 
+//	@Test
+//	public void fetchtest() {
+//		System.out.println(FetchAttemptedTestPaper());
+//		System.out.println(FetchAttemptedTestPaper());
+//
+//	}
+
 	public MyTest FetchTestpaper1(int ID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();

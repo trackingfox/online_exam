@@ -1,17 +1,14 @@
 package com.JPA.onlineExam.entity;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.sun.istack.Nullable;
@@ -34,53 +31,53 @@ public class User {
 	@ManyToMany
 	private List<MyTest> UnattemptTestSet;
 
-	@ManyToMany
+	@OneToMany
 	private List<AttemptedTest> atemptTestSet;
 
 	// allows nullable
 	@Nullable
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	private List<User> friends;
 
-	@ManyToMany
-	private List<DailyActivity> activity;
-
-	@ManyToMany
-	private List<Topics> topics;
-
-	@ElementCollection
-	private Map<Topics, Score> topicsScoreSet = new HashMap<Topics, Score>();
+//	@OneToMany
+//	private List<DailyActivity> activity;
+//
+//	@ManyToMany
+//	private List<Topics> topics;
+//
+//	@ElementCollection
+//	private Map<Topics, Score> topicsScoreSet = new HashMap<Topics, Score>();
 
 	// @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 	// CascadeType.DETACH, CascadeType.REFRESH })
 
-	public Map<Topics, Score> getTopicsScoreSet() {
-		return topicsScoreSet;
-	}
-
-	public void setTopicsScoreSet(Map<Topics, Score> topicsScoreSet) {
-		this.topicsScoreSet = topicsScoreSet;
-	}
+//	public Map<Topics, Score> getTopicsScoreSet() {
+//		return topicsScoreSet;
+//	}
+//
+//	public void setTopicsScoreSet(Map<Topics, Score> topicsScoreSet) {
+//		this.topicsScoreSet = topicsScoreSet;
+//	}
 
 	public String getUserName() {
 		return userName;
 	}
 
-	public List<Topics> getTopics() {
-		return topics;
-	}
-
-	public void setTopics(List<Topics> topics) {
-		this.topics = topics;
-	}
-
-	public List<DailyActivity> getActivity() {
-		return activity;
-	}
-
-	public void setActivity(List<DailyActivity> activity) {
-		this.activity = activity;
-	}
+//	public List<Topics> getTopics() {
+//		return topics;
+//	}
+//
+//	public void setTopics(List<Topics> topics) {
+//		this.topics = topics;
+//	}
+//
+//	public List<DailyActivity> getActivity() {
+//		return activity;
+//	}
+//
+//	public void setActivity(List<DailyActivity> activity) {
+//		this.activity = activity;
+//	}
 
 	public int getUser_id() {
 		return user_id;
@@ -126,11 +123,11 @@ public class User {
 		UnattemptTestSet = unattemptTestSet;
 	}
 
-	@Override
-	public String toString() {
-		return "User [user_id=" + user_id + ", userName=" + userName + ", password=" + password + ", UnattemptTestSet="
-				+ UnattemptTestSet + ", atemptTestSet=" + atemptTestSet + ", friends=" + friends + ", activity="
-				+ activity + ", topics=" + topics + ", topicsScoreSet=" + topicsScoreSet + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [user_id=" + user_id + ", userName=" + userName + ", password=" + password + ", UnattemptTestSet="
+//				+ UnattemptTestSet + ", atemptTestSet=" + atemptTestSet + ", friends=" + friends + ", activity="
+//				+ activity + ", topics=" + topics + ", topicsScoreSet=" + topicsScoreSet + "]";
+//	}
 
 }

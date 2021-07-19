@@ -17,7 +17,7 @@ import com.JPA.onlineExam.entity.User;
 
 public class UserCsvToDb {
 
-	@Test
+//	@Test
 	public void userToDb() {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
@@ -31,7 +31,7 @@ public class UserCsvToDb {
 
 		List<MyTest> unattemptTestSet = FetchTestpaper();
 
-		List<AttemptedTest> atemptTestSet = FetchAttemptedTestPaper1();
+		List<AttemptedTest> atemptTestSet = FetchAttemptedTestPaper1(1, 3);
 
 		List<User> friends = new ArrayList<User>();
 
@@ -41,64 +41,65 @@ public class UserCsvToDb {
 		user1.setAtemptTestSet(atemptTestSet);
 		// user1.setFriends(friends);
 
-		em.merge(user1);
+//		em.merge(user1);
+
+		List<AttemptedTest> atemptTestSet2 = FetchAttemptedTestPaper1(4, 5);
 
 		user2.setUserName("Ramesh");
 		user2.setPassword("password2");
 		user2.setUnattemptTestSet(unattemptTestSet);
-		user2.setAtemptTestSet(atemptTestSet);
-		// user2.setFriends(friends);
+		user2.setAtemptTestSet(atemptTestSet2);
+//		 user2.setFriends(friends);
 
-//		friends.add(user1);
-//		friends.add(user2);
 		em.merge(user2);
-
-		user3.setUserName("Nilesh");
-		user3.setPassword("password3");
-		user3.setUnattemptTestSet(unattemptTestSet);
-		user3.setAtemptTestSet(atemptTestSet);
-//		user3.setFriends(friends);
-
-		em.merge(user3);
-
-		user4.setUserName("Somesh");
-		user4.setPassword("password4");
-		user4.setUnattemptTestSet(unattemptTestSet);
-		user4.setAtemptTestSet(atemptTestSet);
-//	    user4.setFriends(friends);
-
-		em.merge(user4);
+//
+//		user3.setUserName("Nilesh");
+//		user3.setPassword("password3");
+//		user3.setUnattemptTestSet(unattemptTestSet);
+//		user3.setAtemptTestSet(atemptTestSet);
+////		user3.setFriends(friends);
+//
+//		em.merge(user3);
+//
+//		user4.setUserName("Somesh");
+//		user4.setPassword("password4");
+//		user4.setUnattemptTestSet(unattemptTestSet);
+//		user4.setAtemptTestSet(atemptTestSet);
+////	    user4.setFriends(friends);
+//
+//		em.merge(user4);
 		em.getTransaction().commit();
-
-		em.getTransaction().begin();
-
-		friends.add(user1);
-		friends.add(user2);
-		friends.add(user3);
-		friends.add(user4);
-
-		user1.setFriends(friends);
-		em.merge(user1);
-		user2.setFriends(friends);
-		em.merge(user2);
-		user3.setFriends(friends);
-		em.merge(user3);
-		user4.setFriends(friends);
-		em.merge(user4);
-
-		em.getTransaction().commit();
-
-		// u.setFriends(friends);
-
-		// creating user
-
-		// updating user with mapping(min 2 objects)
-
-		// creating hashmap for storing topic object and score object as key: value pair
-		// List<Topics> topics = new List<Topics>();
 
 		em.close();
 		emf.close();
+	}
+
+//	@Test
+	public void Fetch() {
+		System.out.println(FetchAttemptedTestPaper1(1, 3));
+		System.out.println(FetchAttemptedTestPaper1(3, 5));
+	}
+
+	@Test
+	public void update_userToDb() {
+
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+//		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+
+		List<User> friends = new ArrayList<User>();
+		friends = FetchUser();
+
+		for (User u : friends) {
+			u.setFriends(friends);
+			em.merge(u);
+		}
+
+		em.getTransaction().commit();
+
+//		em.close();
+//		emf.close();
+
 	}
 
 //	public Map<Topics, Score> topic_Score_object(Topics topics, Score scores) {
@@ -111,21 +112,77 @@ public class UserCsvToDb {
 //
 //	}
 
-	public List<AttemptedTest> FetchAttemptedTestPaper1() {
+//	public List<Topics> FetchTopics() {
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+//		EntityManager em = emf.createEntityManager();
+//		em.getTransaction().begin();
+//
+//		Query query = em.createQuery("FROM User where topic_id>=1 AND topic_id <=4");
+//		List<Topics> topics = query.getResultList();
+//		for (Topics obj : topics) {
+//
+//			System.out.println(obj.+ "\n" + obj.getPassword() + "    ");
+//
+//		}
+//
+//		em.close();
+//		emf.close();
+//		return topics;
+//	}
+//
+//	public List<Score> FetchScore() {
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+//		EntityManager em = emf.createEntityManager();
+//		em.getTransaction().begin();
+//
+//		Query query = em.createQuery("FROM Score where user_id>=1 AND user_id <=4");
+//		List<User> users = query.getResultList();
+//		for (User obj : users) {
+//
+//			System.out.println(obj.getUserName() + "\n" + obj.getPassword() + "    ");
+//
+//		}
+//
+//		em.close();
+//		emf.close();
+//		return scores;
+//	}
+
+	public List<User> FetchUser() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
-		Query query = em.createQuery("FROM AttemptedTest where sl_no>=1 AND sl_no <=4");
-		List<AttemptedTest> testPaper = query.getResultList();
-		for (AttemptedTest obj : testPaper) {
+		Query query = em.createQuery("FROM User ");
+		List<User> users = query.getResultList();
+		for (User obj : users) {
 
-			System.out.println(obj.getQuestionAnswersSet() + "\n" + obj.getFinalScore() + "    ");
+			System.out.println(obj.getUserName() + "\n" + obj.getPassword() + "    ");
 
 		}
 
 		em.close();
 		emf.close();
+		return users;
+	}
+
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+	EntityManager em = emf.createEntityManager();
+
+	public List<AttemptedTest> FetchAttemptedTestPaper1(int start, int end) {
+
+		// em.getTransaction().begin();
+
+		Query query = em.createQuery("FROM AttemptedTest where sl_no>=" + start + " AND sl_no <=" + end);
+		List<AttemptedTest> testPaper = query.getResultList();
+		for (AttemptedTest obj : testPaper) {
+
+			System.out.println(obj.getSl_no());// .getQuestionAnswersSet() + "\n" + obj.getFinalScore() + " ");
+
+		}
+
+		// em.close();
+		// emf.close();
 		return testPaper;
 	}
 
@@ -149,6 +206,14 @@ public class UserCsvToDb {
 		emf.close();
 
 		return testPaper;
+
+	}
+
+	public User addFriend() {
+
+	}
+
+	public User removeFriend() {
 
 	}
 }

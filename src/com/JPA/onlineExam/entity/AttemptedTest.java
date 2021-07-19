@@ -33,6 +33,17 @@ public class AttemptedTest {
 	@JoinColumn(name = "testId")
 	private MyTest test;
 
+	@ElementCollection
+	private Map<Question, Character> questionAnswersSet = new HashMap<Question, Character>();
+
+	public int getSl_no() {
+		return sl_no;
+	}
+
+	public void setSl_no(int sl_no) {
+		this.sl_no = sl_no;
+	}
+
 	public MyTest getTest() {
 		return test;
 	}
@@ -40,9 +51,6 @@ public class AttemptedTest {
 	public void setTest(MyTest test) {
 		this.test = test;
 	}
-
-	@ElementCollection
-	private Map<Question, Character> questionAnswersSet = new HashMap<Question, Character>();
 
 //	public char getUser_ans() {
 //		return user_ans;
