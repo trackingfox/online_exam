@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.junit.Test;
 
@@ -60,19 +58,19 @@ public class QuesCsv2db_Insert {
 	}
 
 	@Test
-	public void importTodb() throws IllegalStateException, FileNotFoundException {
+	public void importTodb(EntityManager em) throws IllegalStateException, FileNotFoundException {
 
 		// use persistence.xml configuration
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
-		EntityManager em = emf.createEntityManager();
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+//		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
 		List<Question> queslist1 = this.DataDetails();
 		queslist1.forEach(x -> em.merge(x));
 		em.getTransaction().commit();
-		em.close();
-		emf.close();
+//		em.close();
+//		emf.close();
 
 	}
 
