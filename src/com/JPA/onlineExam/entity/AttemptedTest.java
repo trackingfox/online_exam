@@ -31,7 +31,7 @@ public class AttemptedTest {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "testId")
-	private MyTest test;
+	private TestPaper test;
 
 	@ElementCollection
 	private Map<Question, Character> questionAnswersSet = new HashMap<Question, Character>();
@@ -44,11 +44,11 @@ public class AttemptedTest {
 		this.sl_no = sl_no;
 	}
 
-	public MyTest getTest() {
+	public TestPaper getTest() {
 		return test;
 	}
 
-	public void setTest(MyTest test) {
+	public void setTest(TestPaper test) {
 		this.test = test;
 	}
 

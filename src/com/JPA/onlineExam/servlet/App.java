@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 
 import org.junit.Test;
 
-import com.JPA.onlineExam.entity.MyTest;
+import com.JPA.onlineExam.entity.TestPaper;
 import com.JPA.onlineExam.entity.Question;
 
 public class App {
@@ -34,7 +34,7 @@ public class App {
 		queList.add(question2);
 		queList.add(question3);
 
-		MyTest mytest1 = new MyTest();
+		TestPaper mytest1 = new TestPaper();
 		mytest1.setTestName("Java");
 		mytest1.setTestLevel("1");
 

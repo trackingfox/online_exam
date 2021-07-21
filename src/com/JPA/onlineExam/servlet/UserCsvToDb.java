@@ -11,8 +11,8 @@ import javax.persistence.Query;
 import org.junit.Test;
 
 import com.JPA.onlineExam.entity.AttemptedTest;
-import com.JPA.onlineExam.entity.MyTest;
 import com.JPA.onlineExam.entity.Question;
+import com.JPA.onlineExam.entity.TestPaper;
 import com.JPA.onlineExam.entity.User;
 
 public class UserCsvToDb {
@@ -29,7 +29,7 @@ public class UserCsvToDb {
 		User user3 = new User();
 		User user4 = new User();
 
-		List<MyTest> unattemptTestSet = FetchTestpaper();
+		List<TestPaper> unattemptTestSet = FetchTestpaper();
 
 		List<AttemptedTest> atemptTestSet = FetchAttemptedTestPaper1(1, 3);
 
@@ -186,14 +186,14 @@ public class UserCsvToDb {
 		return testPaper;
 	}
 
-	public List<MyTest> FetchTestpaper() {
+	public List<TestPaper> FetchTestpaper() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
 		Query query = em.createQuery("FROM MyTest where testId>=1 AND testId<=4");
-		List<MyTest> testPaper = query.getResultList();
-		for (MyTest obj : testPaper) {
+		List<TestPaper> testPaper = query.getResultList();
+		for (TestPaper obj : testPaper) {
 			for (Question q : obj.getQuestionSet()) {
 				System.out.println(q.getQuestion() + "        " + q.getChoice_1() + "     " + q.getChoice_2() + "      "
 						+ q.getChoice_3() + "     " + q.getChoice_4());

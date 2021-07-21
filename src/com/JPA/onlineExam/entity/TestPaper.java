@@ -12,8 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MyTest")
-public class MyTest {
+@Table(name = "TestPaper")
+public class TestPaper {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

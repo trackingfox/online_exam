@@ -29,7 +29,7 @@ public class User {
 	private String password;
 
 	@ManyToMany
-	private List<MyTest> UnattemptTestSet;
+	private List<TestPaper> UnattemptTestSet;
 
 	@OneToMany
 	private List<AttemptedTest> atemptTestSet;
@@ -115,11 +115,11 @@ public class User {
 		this.friends = friends;
 	}
 
-	public List<MyTest> getUnattemptTestSet() {
+	public List<TestPaper> getUnattemptTestSet() {
 		return UnattemptTestSet;
 	}
 
-	public void setUnattemptTestSet(List<MyTest> unattemptTestSet) {
+	public void setUnattemptTestSet(List<TestPaper> unattemptTestSet) {
 		UnattemptTestSet = unattemptTestSet;
 	}
 

@@ -14,21 +14,21 @@ import javax.persistence.Query;
 import org.junit.Test;
 
 import com.JPA.onlineExam.entity.AttemptedTest;
-import com.JPA.onlineExam.entity.MyTest;
+import com.JPA.onlineExam.entity.TestPaper;
 import com.JPA.onlineExam.entity.Question;
 
 public class AttemptedTest_csv2db {
 
 	// method to calculate finalscore
 
-	public List<MyTest> FetchTestpaper() {
+	public List<TestPaper> FetchTestpaper() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
 		Query query = em.createQuery("FROM MyTest where testId>=1  AND testId<=4");
-		List<MyTest> testPaper = query.getResultList();
-		for (MyTest obj : testPaper) {
+		List<TestPaper> testPaper = query.getResultList();
+		for (TestPaper obj : testPaper) {
 			for (Question q : obj.getQuestionSet()) {
 				System.out.println(q.getQuestion() + "        " + q.getChoice_1() + "     " + q.getChoice_2() + "      "
 						+ q.getChoice_3() + "     " + q.getChoice_4());
@@ -51,13 +51,13 @@ public class AttemptedTest_csv2db {
 //
 //	}
 
-	public MyTest FetchTestpaper1(int ID) {
+	public TestPaper FetchTestpaper1(int ID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
 		Query query = em.createQuery("FROM MyTest where testId=ID");
-		MyTest testPaper = (MyTest) query.getResultList().get(0);
+		TestPaper testPaper = (TestPaper) query.getResultList().get(0);
 
 		for (Question q : testPaper.getQuestionSet()) {
 			System.out.println(q.getQuestion() + "        " + q.getChoice_1() + "     " + q.getChoice_2() + "      "
@@ -75,7 +75,7 @@ public class AttemptedTest_csv2db {
 
 	// key value pair for question and answer.
 	// @Test
-	public Map<Question, Character> testAnswers(MyTest testPaper) {
+	public Map<Question, Character> testAnswers(TestPaper testPaper) {
 
 		Map<Question, Character> hashmap = new HashMap<Question, Character>();
 		Random randNum = new Random();
@@ -97,7 +97,7 @@ public class AttemptedTest_csv2db {
 
 	}
 
-	public int calculateFinalScore(MyTest testPaper) {
+	public int calculateFinalScore(TestPaper testPaper) {
 
 		int finalScore = 0;
 		// for (MyTest obj : testPaper) {
@@ -149,7 +149,7 @@ public class AttemptedTest_csv2db {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
-		List<MyTest> test = FetchTestpaper();
+		List<TestPaper> test = FetchTestpaper();
 
 		AttemptedTest test2 = new AttemptedTest();
 
@@ -159,7 +159,7 @@ public class AttemptedTest_csv2db {
 
 		//
 
-		for (MyTest test1 : test) {
+		for (TestPaper test1 : test) {
 
 			if (test1.getTestId() == 1) {
 
