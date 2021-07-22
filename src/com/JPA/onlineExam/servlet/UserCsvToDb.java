@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.JPA.onlineExam.entity.AttemptedTest;
 import com.JPA.onlineExam.entity.Question;
 import com.JPA.onlineExam.entity.TestPaper;
+import com.JPA.onlineExam.entity.Topics;
 import com.JPA.onlineExam.entity.User;
 
 public class UserCsvToDb {
@@ -102,6 +103,38 @@ public class UserCsvToDb {
 
 	}
 
+	public void createTopics(EntityManager em) {
+		em.getTransaction().begin();
+
+		List<User> users = new ArrayList<>();
+		users = FetchUsers();
+
+//	    create the attempted test object  
+		List<TestPaper> test = FetchTestpaper(em);
+		// Map<Question, Character> hashmap = new HashMap<Question, Character>();
+		Topics topic = new Topics();
+		int finalScore = 0;
+
+		for (User u : users) {
+
+			// int no_of_attempt = (int) (Math.random() * (5 - 1 + 1) + 1);
+
+			// suppose 10 topics we want to generate for each user
+
+			for (int i = 0; i < 10; i++) {
+
+				topic.setTestPapers(test);
+				topic.setContent(content);
+				topic.setTitletopic(titletopic);
+				// finalScore = calculateFinalScore(test1);
+
+				em.merge(topic);
+			}
+
+		}
+		em.getTransaction().commit();
+	}
+
 //	public Map<Topics, Score> topic_Score_object(Topics topics, Score scores) {
 //
 //		Map<Topics, Score> hashmap = new HashMap<Topics, Score>();
@@ -112,27 +145,43 @@ public class UserCsvToDb {
 //
 //	}
 
-//	public List<Topics> FetchTopics() {
+	public List<Topics> FetchTopics(EntityManager em) {
 //		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
 //		EntityManager em = emf.createEntityManager();
-//		em.getTransaction().begin();
-//
-//		Query query = em.createQuery("FROM User where topic_id>=1 AND topic_id <=4");
-//		List<Topics> topics = query.getResultList();
-//		for (Topics obj : topics) {
-//
-//			System.out.println(obj.+ "\n" + obj.getPassword() + "    ");
-//
-//		}
-//
+		em.getTransaction().begin();
+
+		Query query = em.createQuery("FROM Topics where topic_id>=1 AND topic_id <=10");
+		List<Topics> topics = query.getResultList();
+		for (Topics obj : topics) {
+
+			System.out.println(obj.getTitletopic() + " " + obj.getContent() + "  " + obj.getTestPapers());
+
+		}
+
 //		em.close();
 //		emf.close();
-//		return topics;
-//	}
+		return topics;
+	}
+
+	// topic wise score
+	public void calculatetopic_score() {
+
+	}
+
+	// topic wise percentile
+	public void calculate_Percentile() {
+
+	}
+
+	// common test for all users
+	public void calculate_globalScore() {
+
+	}
+
 //
-//	public List<Score> FetchScore() {
-//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
-//		EntityManager em = emf.createEntityManager();
+//	public List<Score> FetchScore(EntityManager em) {
+////		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+////		EntityManager em = emf.createEntityManager();
 //		em.getTransaction().begin();
 //
 //		Query query = em.createQuery("FROM Score where user_id>=1 AND user_id <=4");

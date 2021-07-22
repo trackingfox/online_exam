@@ -106,25 +106,21 @@ public class UserToDb {
 		Map<Question, Character> hashmap = new HashMap<Question, Character>();
 		AttemptedTest test2 = new AttemptedTest();
 		int finalScore = 0;
-		int i = 0;
 
 		for (TestPaper test1 : test) {
 
-			test2.setTest(test1);
-			finalScore = calculateFinalScore(test1);
-			hashmap = testAnswers(test1);
-//				// printing the objects of hashmap
-//				Set<Map.Entry<Question, Character>> entries = hashmap.entrySet();
-//				for (Map.Entry<Question, Character> hm : entries) {
-//					Question x = hm.getKey();
-//					char y = hm.getValue();
-//					System.out.println(x + " : " + y);
-//				}
+			int no_of_attempt = (int) (Math.random() * (5 - 1 + 1) + 1);
 
-			test2.setFinalScore(finalScore);
-			test2.setQuestionAnswersSet(hashmap);
+			for (int i = 0; i < no_of_attempt; i++) {
 
-			em.merge(test2);
+				test2.setTest(test1);
+				finalScore = calculateFinalScore(test1);
+				hashmap = testAnswers(test1);
+				test2.setFinalScore(finalScore);
+				test2.setQuestionAnswersSet(hashmap);
+
+				em.merge(test2);
+			}
 
 		}
 		em.getTransaction().commit();
