@@ -165,6 +165,13 @@ public class UserCsvToDb {
 
 	// topic wise score
 	public void calculatetopic_score() {
+		// fetch user
+		List<User> users = new ArrayList<>();
+		users = FetchUsers();
+
+		// iterate and find the objects of testpapers
+
+		//
 
 	}
 

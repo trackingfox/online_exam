@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Embeddable
@@ -20,6 +21,7 @@ public class Topics {
 	@Column(name = "topicId")
 	private int topicId;
 
+	@OneToMany(mappedBy = "Topic")
 	private List<TestPaper> TestPapers;
 
 	// private List<AttemptedTest> TestAttempted;
@@ -60,7 +62,8 @@ public class Topics {
 
 	@Override
 	public String toString() {
-		return "Topics [TestPapers=" + TestPapers + ", titletopic=" + titletopic + ", content=" + content + "]";
+		return "Topics [topicId=" + topicId + ", TestPapers=" + TestPapers + ", titletopic=" + titletopic + ", content="
+				+ content + "]";
 	}
 
 }
