@@ -168,6 +168,9 @@ public class UserCsvToDb {
 		// fetch user
 		List<User> users = new ArrayList<>();
 		users = FetchUsers();
+		for (User u : users) {
+			u.getTopicsScoreSet();
+		}
 
 		// iterate and find the objects of testpapers
 
@@ -178,6 +181,10 @@ public class UserCsvToDb {
 	// topic wise percentile
 	public void calculate_Percentile() {
 
+		List<AttemptedTest> att_test = new ArrayList<>();
+		att_test = FetchAttemptedTestPaper();
+		
+		for()
 	}
 
 	// common test for all users
@@ -203,6 +210,23 @@ public class UserCsvToDb {
 //		emf.close();
 //		return scores;
 //	}
+	public List<AttemptedTest> FetchAttemptedTestPaper() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+
+		Query query = em.createQuery("FROM AttemptedTest where sl_no=1");
+		List<AttemptedTest> testPaper = query.getResultList();
+		for (AttemptedTest obj : testPaper) {
+
+			System.out.println(obj.getQuestionAnswersSet() + "\n" + obj.getFinalScore() + "    ");
+
+		}
+
+		em.close();
+		emf.close();
+		return testPaper;
+	}
 
 	public List<User> FetchUser() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
