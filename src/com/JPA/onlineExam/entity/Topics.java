@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Embeddable
@@ -23,6 +24,9 @@ public class Topics {
 
 	@OneToMany(mappedBy = "Topic")
 	private List<TestPaper> TestPapers;
+
+	@OneToOne
+	private Score topicwiseScore;
 
 	// private List<AttemptedTest> TestAttempted;
 	private String titletopic;

@@ -45,8 +45,8 @@ public class User {
 	@OneToMany
 	private List<DailyActivity> activity;
 
-	@ManyToMany
-	private List<Topics> topics;
+//	@ManyToMany
+//	private List<Topics> topics;
 
 	@ElementCollection
 	private Map<Topics, Score> topicsScoreSet = new HashMap<Topics, Score>();
@@ -66,13 +66,13 @@ public class User {
 		return userName;
 	}
 
-	public List<Topics> getTopics() {
-		return topics;
-	}
-
-	public void setTopics(List<Topics> topics) {
-		this.topics = topics;
-	}
+//	public List<Topics> getTopics() {
+//		return topics;
+//	}
+//
+//	public void setTopics(List<Topics> topics) {
+//		this.topics = topics;
+//	}
 
 	public List<DailyActivity> getActivity() {
 		return activity;
@@ -130,7 +130,7 @@ public class User {
 	public String toString() {
 		return "User [user_id=" + user_id + ", userName=" + userName + ", password=" + password + ", TestPaperSet="
 				+ TestPaperSet + ", atemptTestSet=" + atemptTestSet + ", friends=" + friends + ", activity=" + activity
-				+ ", topics=" + topics + ", topicsScoreSet=" + topicsScoreSet + "]";
+				+ ", topicsScoreSet=" + topicsScoreSet + "]";
 	}
 
 }

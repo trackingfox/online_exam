@@ -16,9 +16,8 @@ public class Score {
 	@Column(name = "ScoreIId")
 	private int ScoreId;
 
-	private int avg_Topic_score;
+	private int score;
 	private int percentile;
-	private int avg_global_score;
 
 	public int getScoreId() {
 		return ScoreId;
@@ -28,12 +27,12 @@ public class Score {
 		ScoreId = scoreId;
 	}
 
-	public int getAvg_Topic_score() {
-		return avg_Topic_score;
+	public int getScore() {
+		return score;
 	}
 
-	public void setAvg_Topic_score(int avg_Topic_score) {
-		this.avg_Topic_score = avg_Topic_score;
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public int getPercentile() {
@@ -44,18 +43,9 @@ public class Score {
 		this.percentile = percentile;
 	}
 
-	public int getAvg_global_score() {
-		return avg_global_score;
-	}
-
-	public void setAvg_global_score(int avg_global_score) {
-		this.avg_global_score = avg_global_score;
-	}
-
 	@Override
 	public String toString() {
-		return "Score [avg_Topic_score=" + avg_Topic_score + ", percentile=" + percentile + ", avg_global_score="
-				+ avg_global_score + "]";
+		return "Score [ScoreId=" + ScoreId + ", score=" + score + ", percentile=" + percentile + "]";
 	}
 
 }

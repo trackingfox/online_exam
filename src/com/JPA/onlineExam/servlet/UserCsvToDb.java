@@ -179,16 +179,23 @@ public class UserCsvToDb {
 	}
 
 	// topic wise percentile
+	// PERCENTILE = (NUMBER OF STUDENTS WHO SCORED BELOW OR EQUAL TO THE DESIRED
+	// STUDENT/ TOTAL NUMBER OF STUDENTS – 1) * 100
 	public void calculate_Percentile() {
 
 		List<AttemptedTest> att_test = new ArrayList<>();
 		att_test = FetchAttemptedTestPaper();
-		
-		for()
+
+		for (AttemptedTest test : att_test) {
+			test.getFinalScore();
+		}
+
 	}
 
 	// common test for all users
 	public void calculate_globalScore() {
+
+		// filter the global test from the list of attempted test along with scores.
 
 	}
 
