@@ -1,11 +1,8 @@
 package com.JPA.onlineExam.entity;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -48,19 +45,19 @@ public class User {
 //	@ManyToMany
 //	private List<Topics> topics;
 
-	@ElementCollection
-	private Map<Topics, Score> topicsScoreSet = new HashMap<Topics, Score>();
+//	@ElementCollection
+//	private Map<Topics, Score> topicsScoreSet = new HashMap<Topics, Score>();
 
 	// @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 	// CascadeType.DETACH, CascadeType.REFRESH })
 
-	public Map<Topics, Score> getTopicsScoreSet() {
-		return topicsScoreSet;
-	}
-
-	public void setTopicsScoreSet(Map<Topics, Score> topicsScoreSet) {
-		this.topicsScoreSet = topicsScoreSet;
-	}
+//	public Map<Topics, Score> getTopicsScoreSet() {
+//		return topicsScoreSet;
+//	}
+//
+//	public void setTopicsScoreSet(Map<Topics, Score> topicsScoreSet) {
+//		this.topicsScoreSet = topicsScoreSet;
+//	}
 
 	public String getUserName() {
 		return userName;
@@ -126,11 +123,11 @@ public class User {
 		TestPaperSet = unattemptTestSet;
 	}
 
-	@Override
-	public String toString() {
-		return "User [user_id=" + user_id + ", userName=" + userName + ", password=" + password + ", TestPaperSet="
-				+ TestPaperSet + ", atemptTestSet=" + atemptTestSet + ", friends=" + friends + ", activity=" + activity
-				+ ", topicsScoreSet=" + topicsScoreSet + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [user_id=" + user_id + ", userName=" + userName + ", password=" + password + ", TestPaperSet="
+//				+ TestPaperSet + ", atemptTestSet=" + atemptTestSet + ", friends=" + friends + ", activity=" + activity
+//				+ ", topicsScoreSet=" + topicsScoreSet + "]";
+//	}
 
 }

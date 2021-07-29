@@ -1,14 +1,11 @@
 package com.JPA.onlineExam.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,8 +19,8 @@ public class Topics {
 	@Column(name = "topicId")
 	private int topicId;
 
-	@OneToMany(mappedBy = "Topic")
-	private List<TestPaper> TestPapers;
+//	@OneToMany(mappedBy = "Topics")
+//	private List<TestPaper> TestPapers;
 
 	@OneToOne
 	private Score topicwiseScore;
@@ -40,13 +37,13 @@ public class Topics {
 		this.topicId = topicId;
 	}
 
-	public List<TestPaper> getTestPapers() {
-		return TestPapers;
-	}
-
-	public void setTestPapers(List<TestPaper> testPapers) {
-		TestPapers = testPapers;
-	}
+//	public List<TestPaper> getTestPapers() {
+//		return TestPapers;
+//	}
+//
+//	public void setTestPapers(List<TestPaper> testPapers) {
+//		TestPapers = testPapers;
+//	}
 
 	public String getTitletopic() {
 		return titletopic;
@@ -64,10 +61,10 @@ public class Topics {
 		this.content = content;
 	}
 
-	@Override
-	public String toString() {
-		return "Topics [topicId=" + topicId + ", TestPapers=" + TestPapers + ", titletopic=" + titletopic + ", content="
-				+ content + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Topics [topicId=" + topicId + ", TestPapers=" + TestPapers + ", titletopic=" + titletopic + ", content="
+//				+ content + "]";
+//	}
 
 }
