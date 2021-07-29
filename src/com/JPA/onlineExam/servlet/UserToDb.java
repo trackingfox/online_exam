@@ -19,6 +19,7 @@ import org.junit.Test;
 import com.JPA.onlineExam.entity.AttemptedTest;
 import com.JPA.onlineExam.entity.Question;
 import com.JPA.onlineExam.entity.TestPaper;
+import com.JPA.onlineExam.entity.Topics;
 import com.JPA.onlineExam.entity.User;
 
 public class UserToDb {
@@ -36,6 +37,9 @@ public class UserToDb {
 		QuesCsv2db_Insert ques = new QuesCsv2db_Insert();
 		ques.importTodb(em);
 
+		// import some topics
+		generateTopics(em);
+
 //		// Generate tests with random questions		
 		generateTestPaper(em); // generate 4 tests
 
@@ -49,6 +53,42 @@ public class UserToDb {
 		createUser(em);
 
 		M.closeAll(); // remember to close the connection
+	}
+
+	public void generateTopics(EntityManager em) {
+
+		em.getTransaction().begin();
+
+		Topics topic1 = new Topics();
+		Topics topic2 = new Topics();
+		Topics topic3 = new Topics();
+//		Topics topic4 = new Topics();
+//		Topics topic5 = new Topics();
+//		Topics topic6 = new Topics();
+
+		List<TestPaper> testPapers = FetchTestpaper(em);
+
+		topic1.setTestPapers(testPapers);
+		topic1.setContent("Hello content");
+		topic1.setTitletopic("afjfajfl");
+		em.merge(topic1);
+
+		testPapers = FetchTestpaper(em);
+
+		topic2.setTestPapers(testPapers);
+		topic2.setContent("Pqljjv");
+		topic2.setTitletopic("vnsdnlsl");
+		em.merge(topic2);
+
+		testPapers = FetchTestpaper(em);
+
+		topic3.setTestPapers(testPapers);
+		topic3.setContent("gdgdgdlk");
+		topic3.setTitletopic("sjsljlskjglk");
+		em.merge(topic3);
+
+		em.getTransaction().commit();
+
 	}
 
 	/*****************************************************
