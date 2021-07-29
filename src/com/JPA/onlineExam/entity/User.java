@@ -1,8 +1,10 @@
 package com.JPA.onlineExam.entity;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,19 +47,19 @@ public class User {
 //	@ManyToMany
 //	private List<Topics> topics;
 
-//	@ElementCollection
-//	private Map<Topics, Score> topicsScoreSet = new HashMap<Topics, Score>();
+	@ElementCollection
+	private Map<Topic, Score> topicsScoreSet;
 
 	// @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 	// CascadeType.DETACH, CascadeType.REFRESH })
 
-//	public Map<Topics, Score> getTopicsScoreSet() {
-//		return topicsScoreSet;
-//	}
-//
-//	public void setTopicsScoreSet(Map<Topics, Score> topicsScoreSet) {
-//		this.topicsScoreSet = topicsScoreSet;
-//	}
+	public Map<Topic, Score> getTopicsScoreSet() {
+		return topicsScoreSet;
+	}
+
+	public void setTopicsScoreSet(Map<Topic, Score> topicsScoreSet) {
+		this.topicsScoreSet = topicsScoreSet;
+	}
 
 	public String getUserName() {
 		return userName;

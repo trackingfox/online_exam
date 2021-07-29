@@ -6,7 +6,7 @@
 		<class>com.JPA.onlineExam.entity.TestPaper</class>
 		<class>com.JPA.onlineExam.entity.AttemptedTest</class>
 		<class>com.JPA.onlineExam.entity.User</class>
-		<class>com.JPA.onlineExam.entity.Topics</class>
+		<class>com.JPA.onlineExam.entity.Topic</class>
 		<class>com.JPA.onlineExam.entity.Score</class>
 		<class>com.JPA.onlineExam.entity.DailyActivity</class>
 			

@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -18,7 +17,9 @@ import org.junit.Test;
 
 import com.JPA.onlineExam.entity.AttemptedTest;
 import com.JPA.onlineExam.entity.Question;
+import com.JPA.onlineExam.entity.Score;
 import com.JPA.onlineExam.entity.TestPaper;
+import com.JPA.onlineExam.entity.Topic;
 import com.JPA.onlineExam.entity.User;
 
 public class UserToDb {
@@ -37,7 +38,9 @@ public class UserToDb {
 		ques.importTodb(em);
 
 		// import some topics
-		// generateTopics(em);
+		generateTopics(em);
+
+		generateScores(em);
 
 //		// Generate tests with random questions		
 		generateTestPaper(em); // generate 4 tests
@@ -54,41 +57,69 @@ public class UserToDb {
 		M.closeAll(); // remember to close the connection
 	}
 
-//	public void generateTopics(EntityManager em) {
-//
-//		em.getTransaction().begin();
-//
-//		Topics topic1 = new Topics();
-//		Topics topic2 = new Topics();
-//		Topics topic3 = new Topics();
-////		Topics topic4 = new Topics();
-////		Topics topic5 = new Topics();
-////		Topics topic6 = new Topics();
-//
-//		List<TestPaper> testPapers = FetchTestpaper(em);
-//
-//		topic1.setTestPapers(testPapers);
-//		topic1.setContent("Hello content");
-//		topic1.setTitletopic("afjfajfl");
-//		em.merge(topic1);
-//
-//		testPapers = FetchTestpaper(em);
-//
-//		topic2.setTestPapers(testPapers);
-//		topic2.setContent("Pqljjv");
-//		topic2.setTitletopic("vnsdnlsl");
-//		em.merge(topic2);
-//
-//		testPapers = FetchTestpaper(em);
-//
-//		topic3.setTestPapers(testPapers);
-//		topic3.setContent("gdgdgdlk");
-//		topic3.setTitletopic("sjsljlskjglk");
-//		em.merge(topic3);
-//
-//		em.getTransaction().commit();
-//
-//	}
+	public void generateScores(EntityManager em) {
+		em.getTransaction().begin();
+
+		Score score1 = new Score();
+		Score score2 = new Score();
+		Score score3 = new Score();
+		Score score4 = new Score();
+
+		score1.setScore(56);
+		score1.setPercentile(78);
+		em.merge(score1);
+
+		score2.setScore(87);
+		score2.setPercentile(99);
+		em.merge(score2);
+
+		score3.setScore(72);
+		score3.setPercentile(90);
+		em.merge(score3);
+
+		score4.setScore(75);
+		score4.setPercentile(93);
+		em.merge(score4);
+
+		em.getTransaction().commit();
+
+	}
+
+	public void generateTopics(EntityManager em) {
+
+		em.getTransaction().begin();
+
+		Topic topic1 = new Topic();
+		Topic topic2 = new Topic();
+		Topic topic3 = new Topic();
+//		Topics topic4 = new Topics();
+//		Topics topic5 = new Topics();
+//		Topics topic6 = new Topics();
+
+		List<TestPaper> testPapers = FetchTestpaper(em);
+
+		topic1.setTestPapers(testPapers);
+		topic1.setContent("Hello content");
+		topic1.setTitletopic("afjfajfl");
+		em.merge(topic1);
+
+		testPapers = FetchTestpaper(em);
+
+		topic2.setTestPapers(testPapers);
+		topic2.setContent("Pqljjv");
+		topic2.setTitletopic("vnsdnlsl");
+		em.merge(topic2);
+
+		testPapers = FetchTestpaper(em);
+
+		topic3.setTestPapers(testPapers);
+		topic3.setContent("gdgdgdlk");
+		topic3.setTitletopic("sjsljlskjglk");
+		em.merge(topic3);
+
+		em.getTransaction().commit();
+
+	}
 
 	/*****************************************************
 	 * GENERATE TEST PAPERS (SAMPLE)
@@ -194,7 +225,6 @@ public class UserToDb {
 	public Map<Question, Character> testAnswers(TestPaper testPaper) {
 
 		Map<Question, Character> hashmap = new HashMap<Question, Character>();
-		Random randNum = new Random();
 
 		char user_ans = ' ';
 		char[] alphabet = { 'A', 'B', 'C', 'D' };
@@ -244,6 +274,27 @@ public class UserToDb {
 
 	}
 
+	public Map<Topic, Score> topicScore(EntityManager em) {
+
+		Map<Topic, Score> hmap = new HashMap<Topic, Score>();
+
+		List<Topic> topics = FetchTopics(em);
+		List<Score> scores = FetchScores(em);
+
+		Collections.shuffle(scores);
+
+		Score randomScore = (Score) scores.subList(0, 1);
+
+		for (Topic top : topics) {
+
+			hmap.put(top, randomScore);
+
+		}
+
+		return hmap;
+
+	}
+
 	// create user and update the friendship mapping
 	public void createUser(EntityManager em) {
 		em.getTransaction().begin();
@@ -261,73 +312,90 @@ public class UserToDb {
 
 		List<AttemptedTest> atemptTestSet = FetchAttemptedTestPaper1(1, 2, em);
 
+		Map<Topic, Score> topicsScoreSet = new HashMap<Topic, Score>();
+		topicsScoreSet = topicScore(em);
+
 		// List<User> friends = new ArrayList<User>();
 
 		user1.setUserName("Sharif");
 		user1.setPassword("password1");
 		user1.setUnattemptTestSet(unattemptTestSet);
 		user1.setAtemptTestSet(atemptTestSet);
+		user1.setTopicsScoreSet(topicsScoreSet);
 		// user1.setFriends(friends);
 
 		em.merge(user1);
 
 		atemptTestSet = FetchAttemptedTestPaper1(3, 4, em);
-
+		topicsScoreSet = topicScore(em);
 		user2.setUserName("Ramesh");
 		user2.setPassword("password2");
 		user2.setUnattemptTestSet(unattemptTestSet);
 		user2.setAtemptTestSet(atemptTestSet);
+		user2.setTopicsScoreSet(topicsScoreSet);
 //		 user2.setFriends(friends);
 
 		em.merge(user2);
-		atemptTestSet = FetchAttemptedTestPaper1(5, 6, em);
 
+		atemptTestSet = FetchAttemptedTestPaper1(5, 6, em);
+		topicsScoreSet = topicScore(em);
 		user3.setUserName("Nilesh");
 		user3.setPassword("password3");
 		user3.setUnattemptTestSet(unattemptTestSet);
 		user3.setAtemptTestSet(atemptTestSet);
+		user3.setTopicsScoreSet(topicsScoreSet);
 ////		user3.setFriends(friends);
 //
 		em.merge(user3);
+
 		atemptTestSet = FetchAttemptedTestPaper1(7, 8, em);
-//
+		topicsScoreSet = topicScore(em);
 		user4.setUserName("Somesh");
 		user4.setPassword("password4");
 		user4.setUnattemptTestSet(unattemptTestSet);
 		user4.setAtemptTestSet(atemptTestSet);
+		user4.setTopicsScoreSet(topicsScoreSet);
 ////	    user4.setFriends(friends);
 //
 		em.merge(user4);
-		atemptTestSet = FetchAttemptedTestPaper1(9, 10, em);
 
+		atemptTestSet = FetchAttemptedTestPaper1(9, 10, em);
+		topicsScoreSet = topicScore(em);
 		user5.setUserName("Farukh");
 		user5.setPassword("password5");
 		user5.setUnattemptTestSet(unattemptTestSet);
 		user5.setAtemptTestSet(atemptTestSet);
+		user5.setTopicsScoreSet(topicsScoreSet);
 
 		em.merge(user5);
-		atemptTestSet = FetchAttemptedTestPaper1(11, 12, em);
 
+		atemptTestSet = FetchAttemptedTestPaper1(11, 12, em);
+		topicsScoreSet = topicScore(em);
 		user6.setUserName("Sarukh");
 		user6.setPassword("password6");
 		user6.setUnattemptTestSet(unattemptTestSet);
 		user6.setAtemptTestSet(atemptTestSet);
+		user6.setTopicsScoreSet(topicsScoreSet);
 
 		em.merge(user6);
-		atemptTestSet = FetchAttemptedTestPaper1(13, 14, em);
 
+		atemptTestSet = FetchAttemptedTestPaper1(13, 14, em);
+		topicsScoreSet = topicScore(em);
 		user7.setUserName("Amir");
 		user7.setPassword("password7");
 		user7.setUnattemptTestSet(unattemptTestSet);
 		user7.setAtemptTestSet(atemptTestSet);
+		user7.setTopicsScoreSet(topicsScoreSet);
 
 		em.merge(user7);
-		atemptTestSet = FetchAttemptedTestPaper1(15, 16, em);
 
+		atemptTestSet = FetchAttemptedTestPaper1(15, 16, em);
+		topicsScoreSet = topicScore(em);
 		user8.setUserName("Alam");
 		user8.setPassword("password8");
 		user8.setUnattemptTestSet(unattemptTestSet);
 		user8.setAtemptTestSet(atemptTestSet);
+		user8.setTopicsScoreSet(topicsScoreSet);
 
 		em.merge(user8);
 
@@ -423,6 +491,35 @@ public class UserToDb {
 		// em.close();
 		// emf.close();
 		return testPaper;
+	}
+
+	public List<Topic> FetchTopics(EntityManager em) {
+
+		em.getTransaction().begin();
+
+		Query query = em.createQuery("FROM Topics where topic_id>=1 AND topic_id <=10");
+		List<Topic> topics = query.getResultList();
+		for (Topic obj : topics) {
+
+			System.out.println(obj.getTitletopic() + " " + obj.getContent() + "  " + obj.getTestPapers());
+
+		}
+
+		// em.close();
+		// emf.close();
+		return topics;
+	}
+
+	public List<Score> FetchScores(EntityManager em) {
+
+		em.getTransaction().begin();
+
+		Query query = em.createQuery("FROM Score where score_id>=1 AND score_id <=3");
+		List<Score> scores = query.getResultList();
+
+		// em.close();
+		// emf.close();
+		return scores;
 	}
 
 }

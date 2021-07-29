@@ -30,7 +30,7 @@ public class TestPaper {
 
 	@ManyToOne
 	@JoinColumn(name = "topicId")
-	private Topics topic;
+	private Topic topic;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Question> questionSet;

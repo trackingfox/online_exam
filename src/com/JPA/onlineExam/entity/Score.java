@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Score {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ScoreIId")
+	@Column(name = "ScoreId")
 	private int ScoreId;
 
 	private int score;
