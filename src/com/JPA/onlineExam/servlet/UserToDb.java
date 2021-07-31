@@ -18,6 +18,7 @@ import org.junit.Test;
 import com.JPA.onlineExam.entity.AttemptedTest;
 import com.JPA.onlineExam.entity.Question;
 import com.JPA.onlineExam.entity.Score;
+import com.JPA.onlineExam.entity.ScoreTopic;
 import com.JPA.onlineExam.entity.TestPaper;
 import com.JPA.onlineExam.entity.Topic;
 import com.JPA.onlineExam.entity.User;
@@ -274,26 +275,48 @@ public class UserToDb {
 
 	}
 
-	public Map<Topic, Score> topicScore(EntityManager em) {
+	public List<ScoreTopic> Fetch_scoreTopic(EntityManager em) {
 
-		Map<Topic, Score> hmap = new HashMap<Topic, Score>();
+		Query query = em.createQuery("FROM ScoreTopic where Id>=1 AND Id<=4");
+		List<ScoreTopic> scoreTopic = query.getResultList();
+
+		return scoreTopic;
+
+	}
+
+	public void createScoreTopic(EntityManager em) {
 
 		List<Topic> topics = FetchTopics(em);
 		List<Score> scores = FetchScores(em);
 
-		Collections.shuffle(scores);
+		ScoreTopic St = new ScoreTopic();
+		St.setScore(scores);
+		St.setTopic(topics);
 
-		Score randomScore = (Score) scores.subList(0, 1);
-
-		for (Topic top : topics) {
-
-			hmap.put(top, randomScore);
-
-		}
-
-		return hmap;
+		em.merge(St);
 
 	}
+
+//	public Map<Topic, Score> topicScore(EntityManager em) {
+//
+//		Map<Topic, Score> hmap = new HashMap<Topic, Score>();
+//
+//		List<Topic> topics = FetchTopics(em);
+//		List<Score> scores = FetchScores(em);
+//
+//		Collections.shuffle(scores);
+//
+//		Score randomScore = (Score) scores.subList(0, 1);
+//
+//		for (Topic top : topics) {
+//
+//			hmap.put(top, randomScore);
+//
+//		}
+//
+//		return hmap;
+//
+//	}
 
 	// create user and update the friendship mapping
 	public void createUser(EntityManager em) {
@@ -312,8 +335,7 @@ public class UserToDb {
 
 		List<AttemptedTest> atemptTestSet = FetchAttemptedTestPaper1(1, 2, em);
 
-		Map<Topic, Score> topicsScoreSet = new HashMap<Topic, Score>();
-		topicsScoreSet = topicScore(em);
+		List<ScoreTopic> scoreTopic = Fetch_scoreTopic(em);
 
 		// List<User> friends = new ArrayList<User>();
 
@@ -321,81 +343,82 @@ public class UserToDb {
 		user1.setPassword("password1");
 		user1.setUnattemptTestSet(unattemptTestSet);
 		user1.setAtemptTestSet(atemptTestSet);
-		user1.setTopicsScoreSet(topicsScoreSet);
+		user1.setScoreTopic(scoreTopic);
+
 		// user1.setFriends(friends);
 
 		em.merge(user1);
 
 		atemptTestSet = FetchAttemptedTestPaper1(3, 4, em);
-		topicsScoreSet = topicScore(em);
+		scoreTopic = Fetch_scoreTopic(em);
 		user2.setUserName("Ramesh");
 		user2.setPassword("password2");
 		user2.setUnattemptTestSet(unattemptTestSet);
 		user2.setAtemptTestSet(atemptTestSet);
-		user2.setTopicsScoreSet(topicsScoreSet);
+		user2.setScoreTopic(scoreTopic);
 //		 user2.setFriends(friends);
 
 		em.merge(user2);
 
 		atemptTestSet = FetchAttemptedTestPaper1(5, 6, em);
-		topicsScoreSet = topicScore(em);
+		scoreTopic = Fetch_scoreTopic(em);
 		user3.setUserName("Nilesh");
 		user3.setPassword("password3");
 		user3.setUnattemptTestSet(unattemptTestSet);
 		user3.setAtemptTestSet(atemptTestSet);
-		user3.setTopicsScoreSet(topicsScoreSet);
+		user3.setScoreTopic(scoreTopic);
 ////		user3.setFriends(friends);
 //
 		em.merge(user3);
 
 		atemptTestSet = FetchAttemptedTestPaper1(7, 8, em);
-		topicsScoreSet = topicScore(em);
+		scoreTopic = Fetch_scoreTopic(em);
 		user4.setUserName("Somesh");
 		user4.setPassword("password4");
 		user4.setUnattemptTestSet(unattemptTestSet);
 		user4.setAtemptTestSet(atemptTestSet);
-		user4.setTopicsScoreSet(topicsScoreSet);
+		user4.setScoreTopic(scoreTopic);
 ////	    user4.setFriends(friends);
 //
 		em.merge(user4);
 
 		atemptTestSet = FetchAttemptedTestPaper1(9, 10, em);
-		topicsScoreSet = topicScore(em);
+		scoreTopic = Fetch_scoreTopic(em);
 		user5.setUserName("Farukh");
 		user5.setPassword("password5");
 		user5.setUnattemptTestSet(unattemptTestSet);
 		user5.setAtemptTestSet(atemptTestSet);
-		user5.setTopicsScoreSet(topicsScoreSet);
+		user5.setScoreTopic(scoreTopic);
 
 		em.merge(user5);
 
 		atemptTestSet = FetchAttemptedTestPaper1(11, 12, em);
-		topicsScoreSet = topicScore(em);
+		scoreTopic = Fetch_scoreTopic(em);
 		user6.setUserName("Sarukh");
 		user6.setPassword("password6");
 		user6.setUnattemptTestSet(unattemptTestSet);
 		user6.setAtemptTestSet(atemptTestSet);
-		user6.setTopicsScoreSet(topicsScoreSet);
+		user6.setScoreTopic(scoreTopic);
 
 		em.merge(user6);
 
 		atemptTestSet = FetchAttemptedTestPaper1(13, 14, em);
-		topicsScoreSet = topicScore(em);
+		scoreTopic = Fetch_scoreTopic(em);
 		user7.setUserName("Amir");
 		user7.setPassword("password7");
 		user7.setUnattemptTestSet(unattemptTestSet);
 		user7.setAtemptTestSet(atemptTestSet);
-		user7.setTopicsScoreSet(topicsScoreSet);
+		user7.setScoreTopic(scoreTopic);
 
 		em.merge(user7);
 
 		atemptTestSet = FetchAttemptedTestPaper1(15, 16, em);
-		topicsScoreSet = topicScore(em);
+		scoreTopic = Fetch_scoreTopic(em);
 		user8.setUserName("Alam");
 		user8.setPassword("password8");
 		user8.setUnattemptTestSet(unattemptTestSet);
 		user8.setAtemptTestSet(atemptTestSet);
-		user8.setTopicsScoreSet(topicsScoreSet);
+		user8.setScoreTopic(scoreTopic);
 
 		em.merge(user8);
 

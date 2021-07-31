@@ -1,10 +1,8 @@
 package com.JPA.onlineExam.entity;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,26 +42,25 @@ public class User {
 	@OneToMany
 	private List<DailyActivity> activity;
 
+	@OneToMany
+	private List<ScoreTopic> scoreTopic;
+
 //	@ManyToMany
 //	private List<Topics> topics;
 
-	@ElementCollection
-	private Map<Topic, Score> topicsScoreSet;
+//	@ElementCollection
+//	private Map<Topic, Score> topicsScoreSet;
 
 	// @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 	// CascadeType.DETACH, CascadeType.REFRESH })
 
-	public Map<Topic, Score> getTopicsScoreSet() {
-		return topicsScoreSet;
-	}
-
-	public void setTopicsScoreSet(Map<Topic, Score> topicsScoreSet) {
-		this.topicsScoreSet = topicsScoreSet;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
+//	public Map<Topic, Score> getTopicsScoreSet() {
+//		return topicsScoreSet;
+//	}
+//
+//	public void setTopicsScoreSet(Map<Topic, Score> topicsScoreSet) {
+//		this.topicsScoreSet = topicsScoreSet;
+//	}
 
 //	public List<Topics> getTopics() {
 //		return topics;
@@ -72,6 +69,22 @@ public class User {
 //	public void setTopics(List<Topics> topics) {
 //		this.topics = topics;
 //	}
+
+	public List<TestPaper> getTestPaperSet() {
+		return TestPaperSet;
+	}
+
+	public void setTestPaperSet(List<TestPaper> testPaperSet) {
+		TestPaperSet = testPaperSet;
+	}
+
+	public List<ScoreTopic> getScoreTopic() {
+		return scoreTopic;
+	}
+
+	public void setScoreTopic(List<ScoreTopic> scoreTopic) {
+		this.scoreTopic = scoreTopic;
+	}
 
 	public List<DailyActivity> getActivity() {
 		return activity;
@@ -87,6 +100,10 @@ public class User {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getUserName() {
+		return userName;
 	}
 
 	public void setUserName(String userName) {
