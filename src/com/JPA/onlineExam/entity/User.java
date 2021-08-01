@@ -43,32 +43,7 @@ public class User {
 	private List<DailyActivity> activity;
 
 	@OneToMany
-	private List<ScoreTopic> scoreTopic;
-
-//	@ManyToMany
-//	private List<Topics> topics;
-
-//	@ElementCollection
-//	private Map<Topic, Score> topicsScoreSet;
-
-	// @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-	// CascadeType.DETACH, CascadeType.REFRESH })
-
-//	public Map<Topic, Score> getTopicsScoreSet() {
-//		return topicsScoreSet;
-//	}
-//
-//	public void setTopicsScoreSet(Map<Topic, Score> topicsScoreSet) {
-//		this.topicsScoreSet = topicsScoreSet;
-//	}
-
-//	public List<Topics> getTopics() {
-//		return topics;
-//	}
-//
-//	public void setTopics(List<Topics> topics) {
-//		this.topics = topics;
-//	}
+	private List<TopicWiseScore> scoreTopic;
 
 	public List<TestPaper> getTestPaperSet() {
 		return TestPaperSet;
@@ -78,11 +53,11 @@ public class User {
 		TestPaperSet = testPaperSet;
 	}
 
-	public List<ScoreTopic> getScoreTopic() {
+	public List<TopicWiseScore> getScoreTopic() {
 		return scoreTopic;
 	}
 
-	public void setScoreTopic(List<ScoreTopic> scoreTopic) {
+	public void setScoreTopic(List<TopicWiseScore> scoreTopic) {
 		this.scoreTopic = scoreTopic;
 	}
 

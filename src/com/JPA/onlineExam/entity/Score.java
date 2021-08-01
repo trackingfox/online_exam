@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,9 +18,6 @@ public class Score {
 
 	private int score;
 	private int percentile;
-
-	@OneToOne
-	private Topic topic;
 
 	public int getScoreId() {
 		return ScoreId;

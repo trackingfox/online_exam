@@ -9,13 +9,15 @@
 		<class>com.JPA.onlineExam.entity.Topic</class>
 		<class>com.JPA.onlineExam.entity.Score</class>
 		<class>com.JPA.onlineExam.entity.DailyActivity</class>
+		<class>com.JPA.onlineExam.entity.TopicWiseScore</class>
+		<class>com.JPA.onlineExam.repoTest.Book</class>
 			
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test_question?useSSL=false"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value="root"/>
-			<property name="hibernate.show_sql" value="true"/>
+			<!--<property name="hibernate.show_sql" value="true"/> -->
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
         	<property name="hibernate.hbm2ddl.auto" value="create "/>

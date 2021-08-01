@@ -18,9 +18,9 @@ import org.junit.Test;
 import com.JPA.onlineExam.entity.AttemptedTest;
 import com.JPA.onlineExam.entity.Question;
 import com.JPA.onlineExam.entity.Score;
-import com.JPA.onlineExam.entity.ScoreTopic;
 import com.JPA.onlineExam.entity.TestPaper;
 import com.JPA.onlineExam.entity.Topic;
+import com.JPA.onlineExam.entity.TopicWiseScore;
 import com.JPA.onlineExam.entity.User;
 
 public class UserToDb {
@@ -38,19 +38,18 @@ public class UserToDb {
 		QuesCsv2db_Insert ques = new QuesCsv2db_Insert();
 		ques.importTodb(em);
 
-		// import some topics
-		generateTopics(em);
-
-		generateScores(em);
-
 //		// Generate tests with random questions		
 		generateTestPaper(em); // generate 4 tests
+//
+//		// import some topics
+		generateTopics(em);
+//
+		generateScores(em);
 
 		// Generate some 'fake' attempted tests
 		createAttemptedTest(em); // sample attempt 1
-//		createAttemptedTest(em); // sample attempt 2
-//		createAttemptedTest(em); // sample attempt 3
-//		createAttemptedTest(em); // sample attempt 3
+
+		createTopicWiseScore(em);
 
 		// Gererate users
 		createUser(em);
@@ -98,6 +97,7 @@ public class UserToDb {
 //		Topics topic6 = new Topics();
 
 		List<TestPaper> testPapers = FetchTestpaper(em);
+		System.out.println("sfjs=" + testPapers.size());
 
 		topic1.setTestPapers(testPapers);
 		topic1.setContent("Hello content");
@@ -135,11 +135,11 @@ public class UserToDb {
 					"FROM Question where Qid>=FLOOR(RAND()*(25-10+1))+10 AND Qid<FLOOR(RAND()*(50-10+1))+30 ");
 			List<Question> results = query.getResultList();
 
-			for (Question obj : results) {
-				System.out.println(obj.getQuestion() + "   " + obj.getChoice_1() + "   " + obj.getChoice_2() + "    "
-						+ obj.getChoice_3() + "    " + obj.getChoice_4());
-
-			}
+//			for (Question obj : results) {
+//				System.out.println(obj.getQuestion() + "   " + obj.getChoice_1() + "   " + obj.getChoice_2() + "    "
+//						+ obj.getChoice_3() + "    " + obj.getChoice_4());
+//
+//			}
 
 			TestPaper test1 = new TestPaper();
 			test1.setQuestionSet(results);
@@ -231,7 +231,7 @@ public class UserToDb {
 		char[] alphabet = { 'A', 'B', 'C', 'D' };
 
 		// user_ans=(int)(Math.random()*(max-min+1)+min);
-		System.out.println(testPaper.toString());
+		// System.out.println(testPaper.toString());
 
 		List<Question> obj1 = testPaper.getQuestionSet();
 		for (Question q : obj1) {
@@ -259,14 +259,14 @@ public class UserToDb {
 
 		Query query = em.createQuery("FROM TestPaper where testId>=1 AND testId<=4");
 		List<TestPaper> testPaper = query.getResultList();
-		for (TestPaper obj : testPaper) {
-			for (Question q : obj.getQuestionSet()) {
-				System.out.println(q.getQuestion() + "        " + q.getChoice_1() + "     " + q.getChoice_2() + "      "
-						+ q.getChoice_3() + "     " + q.getChoice_4());
-			}
-			System.out.println(obj.getTestId() + "   " + obj.getTestName() + "    " + obj.getTestLevel() + "    ");
-
-		}
+//		for (TestPaper obj : testPaper) {
+//			for (Question q : obj.getQuestionSet()) {
+//				System.out.println(q.getQuestion() + "        " + q.getChoice_1() + "     " + q.getChoice_2() + "      "
+//						+ q.getChoice_3() + "     " + q.getChoice_4());
+//			}
+//			System.out.println(obj.getTestId() + "   " + obj.getTestName() + "    " + obj.getTestLevel() + "    ");
+//
+//		}
 
 //		em.close();
 //		emf.close();
@@ -275,25 +275,43 @@ public class UserToDb {
 
 	}
 
-	public List<ScoreTopic> Fetch_scoreTopic(EntityManager em) {
+	public List<TopicWiseScore> Fetch_scoreTopic(EntityManager em) {
 
-		Query query = em.createQuery("FROM ScoreTopic where Id>=1 AND Id<=4");
-		List<ScoreTopic> scoreTopic = query.getResultList();
+		Query query = em.createQuery("FROM TopicWiseScore  where Id>=1 AND Id<=3");
+		List<TopicWiseScore> scoreTopic = query.getResultList();
 
 		return scoreTopic;
 
 	}
 
-	public void createScoreTopic(EntityManager em) {
+	public void createTopicWiseScore(EntityManager em) {
 
+		em.getTransaction().begin();
 		List<Topic> topics = FetchTopics(em);
 		List<Score> scores = FetchScores(em);
 
-		ScoreTopic St = new ScoreTopic();
-		St.setScore(scores);
-		St.setTopic(topics);
+		System.out.println("########");
+		System.out.println(topics.size());
+		System.out.println(scores.size());
+
+		TopicWiseScore St = new TopicWiseScore();
+		St.setTopic(topics.get(0));
+		St.setScore(scores.get(0));
 
 		em.merge(St);
+
+		TopicWiseScore St1 = new TopicWiseScore();
+		St1.setTopic(topics.get(1));
+		St1.setScore(scores.get(1));
+
+		em.merge(St1);
+
+		TopicWiseScore St2 = new TopicWiseScore();
+		St2.setTopic(topics.get(2));
+		St2.setScore(scores.get(2));
+
+		em.merge(St2);
+		em.getTransaction().commit();
 
 	}
 
@@ -335,7 +353,8 @@ public class UserToDb {
 
 		List<AttemptedTest> atemptTestSet = FetchAttemptedTestPaper1(1, 2, em);
 
-		List<ScoreTopic> scoreTopic = Fetch_scoreTopic(em);
+		List<TopicWiseScore> scoreTopic = Fetch_scoreTopic(em);
+		System.out.println("jabjka : " + scoreTopic);
 
 		// List<User> friends = new ArrayList<User>();
 
@@ -351,6 +370,7 @@ public class UserToDb {
 
 		atemptTestSet = FetchAttemptedTestPaper1(3, 4, em);
 		scoreTopic = Fetch_scoreTopic(em);
+		System.out.println("jabjk1 : " + scoreTopic);
 		user2.setUserName("Ramesh");
 		user2.setPassword("password2");
 		user2.setUnattemptTestSet(unattemptTestSet);
@@ -484,7 +504,7 @@ public class UserToDb {
 		// System.out.println(users.size());
 
 		int length = (int) (Math.random() * (8 - 1 + 1) + 1);
-		System.out.println(length);
+		// System.out.println(length);
 		List<User> randomUsers = users.subList(0, length);
 
 		for (User obj : randomUsers) {
@@ -507,7 +527,8 @@ public class UserToDb {
 		List<AttemptedTest> testPaper = query.getResultList();
 		for (AttemptedTest obj : testPaper) {
 
-			System.out.println(obj.getSl_no());// .getQuestionAnswersSet() + "\n" + obj.getFinalScore() + " ");
+			// System.out.println(obj.getSl_no());// .getQuestionAnswersSet() + "\n" +
+			// obj.getFinalScore() + " ");
 
 		}
 
@@ -518,15 +539,15 @@ public class UserToDb {
 
 	public List<Topic> FetchTopics(EntityManager em) {
 
-		em.getTransaction().begin();
+//		em.getTransaction().begin();
 
-		Query query = em.createQuery("FROM Topics where topic_id>=1 AND topic_id <=10");
+		Query query = em.createQuery("FROM Topic where topicId>=1 AND topicId <=3");
 		List<Topic> topics = query.getResultList();
-		for (Topic obj : topics) {
-
-			System.out.println(obj.getTitletopic() + " " + obj.getContent() + "  " + obj.getTestPapers());
-
-		}
+//		for (Topic obj : topics) {
+//
+//			System.out.println(obj.getTitletopic() + " " + obj.getContent() + "  " + obj.getTestPapers());
+//
+//		}
 
 		// em.close();
 		// emf.close();
@@ -535,9 +556,9 @@ public class UserToDb {
 
 	public List<Score> FetchScores(EntityManager em) {
 
-		em.getTransaction().begin();
+		// em.getTransaction().begin();
 
-		Query query = em.createQuery("FROM Score where score_id>=1 AND score_id <=3");
+		Query query = em.createQuery("FROM Score where ScoreId>=1 AND ScoreId <=3");
 		List<Score> scores = query.getResultList();
 
 		// em.close();
