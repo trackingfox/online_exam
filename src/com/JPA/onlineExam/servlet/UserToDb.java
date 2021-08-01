@@ -52,7 +52,7 @@ public class UserToDb {
 		createTopicWiseScore(em);
 
 		// Gererate users
-		createUser(em);
+		// createUser(em);
 
 		M.closeAll(); // remember to close the connection
 	}
