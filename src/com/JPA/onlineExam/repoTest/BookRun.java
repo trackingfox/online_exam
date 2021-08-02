@@ -25,9 +25,11 @@ public class BookRun {
 		bookImpl.saveBook(c);
 		bookImpl.saveBook(d);
 
-		System.out.println(bookImpl.getBookById(2).toString());
+		System.out.println(bookImpl.getBookById(3).toString());
 
-		// bookImpl.getBookByTitle("The Sun");
+		// System.out.println(bookImpl.getBookByTitle("The Sun").toString());
+
+		bookImpl.deleteBook(b);
 
 		em.getTransaction().commit();
 
