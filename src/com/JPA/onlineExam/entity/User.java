@@ -45,14 +45,6 @@ public class User {
 	@OneToMany
 	private List<TopicWiseScore> TopicWiseScoreList;
 
-	public List<TestPaper> getTestPaperSet() {
-		return TestPaperList;
-	}
-
-	public void setTestPaperSet(List<TestPaper> testPaperSet) {
-		TestPaperList = testPaperSet;
-	}
-
 	public List<TopicWiseScore> getScoreTopic() {
 		return TopicWiseScoreList;
 	}
