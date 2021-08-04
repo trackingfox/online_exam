@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,15 +26,15 @@ public class TestPaper {
 	@Column(name = "testLevel")
 	private String testLevel;
 
-	@ManyToOne
-	private Topic topic;
+	@ManyToMany
+	private List<Topic> topics;
 
-	public Topic getTopic() {
-		return topic;
+	public List<Topic> getTopics() {
+		return topics;
 	}
 
-	public void setTopic(Topic topic) {
-		this.topic = topic;
+	public void setTopics(List<Topic> topics) {
+		this.topics = topics;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL)

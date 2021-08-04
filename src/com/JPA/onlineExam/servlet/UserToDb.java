@@ -155,6 +155,8 @@ public class UserToDb {
 		// use persistence.xml configuration
 		em.getTransaction().begin();
 
+		List<Topic> topics = FetchTopics(em);
+
 		for (int i = 1; i <= 4; i++) {
 			Query query = em.createQuery(
 					"FROM Question where Id>=FLOOR(RAND()*(25-10+1))+10 AND Id<FLOOR(RAND()*(50-10+1))+30 ");
@@ -166,15 +168,15 @@ public class UserToDb {
 //
 //			}
 
-//			List<Topic> topic = FetchTopics(em);
-//			int ran = (int) (Math.random() * (3 - 1 + 1) + 1);
+			// int ran = (int) (Math.random() * (3 - 1 + 1) + 1);
 
 			TestPaper test1 = new TestPaper();
 			test1.setQuestionSet(results);
 			test1.setTestName("Full Stack JAVA");
 			test1.setTestLevel("I");
-			// test1.setTopic(topic.get(ran));
+			test1.setTopics(topics);
 			em.merge(test1);
+
 		}
 
 		em.getTransaction().commit();
@@ -212,7 +214,7 @@ public class UserToDb {
 		for (TestPaper test1 : test) {
 
 			int no_of_attempt = (int) (Math.random() * (5 - 1 + 1) + 1);
-			int ran = (int) (Math.random() * (8 - 1 + 1) + 0);
+			// int ran = (int) (Math.random() * (8 - 1 + 1) + 0);
 
 			for (int i = 0; i < no_of_attempt; i++) {
 
@@ -221,10 +223,13 @@ public class UserToDb {
 				hashmap = testAnswers(test1);
 				test2.setFinalScore(finalScore);
 				test2.setQuestionAnswersSet(hashmap);
-				test2.setScore(scores.get(ran));
 
 				em.merge(test2);
 			}
+
+//			for(Score score:scores) {
+//				test2.setScore(score);
+//			}
 
 		}
 		em.getTransaction().commit();
