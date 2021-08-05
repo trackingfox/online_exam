@@ -13,6 +13,64 @@ import javax.persistence.Table;
 @Table(name = "Question")
 public class Question {
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Id;
+		result = prime * result + ((Question == null) ? 0 : Question.hashCode());
+		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
+		result = prime * result + ((choice_1 == null) ? 0 : choice_1.hashCode());
+		result = prime * result + ((choice_2 == null) ? 0 : choice_2.hashCode());
+		result = prime * result + ((choice_3 == null) ? 0 : choice_3.hashCode());
+		result = prime * result + ((choice_4 == null) ? 0 : choice_4.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Question other = (Question) obj;
+		if (Id != other.Id)
+			return false;
+		if (Question == null) {
+			if (other.Question != null)
+				return false;
+		} else if (!Question.equals(other.Question))
+			return false;
+		if (answer == null) {
+			if (other.answer != null)
+				return false;
+		} else if (!answer.equals(other.answer))
+			return false;
+		if (choice_1 == null) {
+			if (other.choice_1 != null)
+				return false;
+		} else if (!choice_1.equals(other.choice_1))
+			return false;
+		if (choice_2 == null) {
+			if (other.choice_2 != null)
+				return false;
+		} else if (!choice_2.equals(other.choice_2))
+			return false;
+		if (choice_3 == null) {
+			if (other.choice_3 != null)
+				return false;
+		} else if (!choice_3.equals(other.choice_3))
+			return false;
+		if (choice_4 == null) {
+			if (other.choice_4 != null)
+				return false;
+		} else if (!choice_4.equals(other.choice_4))
+			return false;
+		return true;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column

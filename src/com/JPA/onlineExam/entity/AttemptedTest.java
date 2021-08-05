@@ -30,6 +30,49 @@ public class AttemptedTest {
 	@ManyToOne
 	private TestPaper test;
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Id;
+		result = prime * result + finalScore;
+		result = prime * result + ((questionAnswersSet == null) ? 0 : questionAnswersSet.hashCode());
+		result = prime * result + ((score == null) ? 0 : score.hashCode());
+		result = prime * result + ((test == null) ? 0 : test.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AttemptedTest other = (AttemptedTest) obj;
+		if (Id != other.Id)
+			return false;
+		if (finalScore != other.finalScore)
+			return false;
+		if (questionAnswersSet == null) {
+			if (other.questionAnswersSet != null)
+				return false;
+		} else if (!questionAnswersSet.equals(other.questionAnswersSet))
+			return false;
+		if (score == null) {
+			if (other.score != null)
+				return false;
+		} else if (!score.equals(other.score))
+			return false;
+		if (test == null) {
+			if (other.test != null)
+				return false;
+		} else if (!test.equals(other.test))
+			return false;
+		return true;
+	}
+
 	@OneToOne
 	private Score score;
 
