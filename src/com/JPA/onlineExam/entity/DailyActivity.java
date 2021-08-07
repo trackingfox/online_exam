@@ -16,7 +16,7 @@ public class DailyActivity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	private int Id;
+	private long Id;
 	private Date day;
 	private String testlink;
 
@@ -36,12 +36,12 @@ public class DailyActivity {
 		this.testlink = testlink;
 	}
 
-	public int getId() {
+	public long getId() {
 		return Id;
 	}
 
-	public void setId(int Id) {
-		this.Id = Id;
+	public void setId(long id) {
+		Id = id;
 	}
 
 	@Override

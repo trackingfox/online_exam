@@ -2,7 +2,7 @@ package com.JPA.onlineExam.entity;
 
 public class QuestionTemp {
 
-	private int Qid;
+	private long Qid;
 	private String Question;
 	private String choice_1;
 	private String choice_2;
@@ -12,11 +12,11 @@ public class QuestionTemp {
 
 	private TestPaper test;
 
-	public int getQid() {
+	public long getQid() {
 		return Qid;
 	}
 
-	public void setQid(int qid) {
+	public void setQid(long qid) {
 		Qid = qid;
 	}
 
@@ -25,23 +25,7 @@ public class QuestionTemp {
 	}
 
 	public void setQuestion(String question) {
-		this.Question = question;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-
-	public TestPaper getTest() {
-		return test;
-	}
-
-	public void setTest(TestPaper test) {
-		this.test = test;
+		Question = question;
 	}
 
 	public String getChoice_1() {
@@ -74,6 +58,29 @@ public class QuestionTemp {
 
 	public void setChoice_4(String choice_4) {
 		this.choice_4 = choice_4;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public TestPaper getTest() {
+		return test;
+	}
+
+	public void setTest(TestPaper test) {
+		this.test = test;
+	}
+
+	@Override
+	public String toString() {
+		return "QuestionTemp [Qid=" + Qid + ", Question=" + Question + ", choice_1=" + choice_1 + ", choice_2="
+				+ choice_2 + ", choice_3=" + choice_3 + ", choice_4=" + choice_4 + ", answer=" + answer + ", test="
+				+ test + "]";
 	}
 
 }

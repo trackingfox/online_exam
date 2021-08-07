@@ -20,7 +20,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	private int Id;
+	private long Id;
 
 	@Column(name = "userName")
 	private String userName;
@@ -45,28 +45,12 @@ public class User {
 	@OneToMany
 	private List<TopicWiseScore> TopicWiseScoreList;
 
-	public List<TopicWiseScore> getScoreTopic() {
-		return TopicWiseScoreList;
-	}
-
-	public void setScoreTopic(List<TopicWiseScore> TopicWiseScoreList) {
-		this.TopicWiseScoreList = TopicWiseScoreList;
-	}
-
-	public List<DailyActivity> getActivity() {
-		return activity;
-	}
-
-	public void setActivity(List<DailyActivity> activity) {
-		this.activity = activity;
-	}
-
-	public int getId() {
+	public long getId() {
 		return Id;
 	}
 
-	public void setId(int Id) {
-		this.Id = Id;
+	public void setId(long id) {
+		Id = id;
 	}
 
 	public String getUserName() {
@@ -85,11 +69,19 @@ public class User {
 		this.password = password;
 	}
 
-	public List<AttemptedTest> getattemptTestPaperList() {
+	public List<TestPaper> getTestPaperList() {
+		return TestPaperList;
+	}
+
+	public void setTestPaperList(List<TestPaper> testPaperList) {
+		TestPaperList = testPaperList;
+	}
+
+	public List<AttemptedTest> getAttemptTestPaperList() {
 		return attemptTestPaperList;
 	}
 
-	public void setattemptTestPaperList(List<AttemptedTest> attemptTestPaperList) {
+	public void setAttemptTestPaperList(List<AttemptedTest> attemptTestPaperList) {
 		this.attemptTestPaperList = attemptTestPaperList;
 	}
 
@@ -101,19 +93,91 @@ public class User {
 		this.friends = friends;
 	}
 
-	public List<TestPaper> getTestPaperList() {
-		return TestPaperList;
+	public List<DailyActivity> getActivity() {
+		return activity;
 	}
 
-	public void setTestPaperList(List<TestPaper> TestPaperList) {
-		this.TestPaperList = TestPaperList;
+	public void setActivity(List<DailyActivity> activity) {
+		this.activity = activity;
+	}
+
+	public List<TopicWiseScore> getTopicWiseScoreList() {
+		return TopicWiseScoreList;
+	}
+
+	public void setTopicWiseScoreList(List<TopicWiseScore> topicWiseScoreList) {
+		TopicWiseScoreList = topicWiseScoreList;
 	}
 
 	@Override
 	public String toString() {
-		return "User [user_id=" + Id + ", userName=" + userName + ", password=" + password + ", TestPaperList="
+		return "User [Id=" + Id + ", userName=" + userName + ", password=" + password + ", TestPaperList="
 				+ TestPaperList + ", attemptTestPaperList=" + attemptTestPaperList + ", friends=" + friends
 				+ ", activity=" + activity + ", TopicWiseScoreList=" + TopicWiseScoreList + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (Id ^ (Id >>> 32));
+		result = prime * result + ((TestPaperList == null) ? 0 : TestPaperList.hashCode());
+		result = prime * result + ((TopicWiseScoreList == null) ? 0 : TopicWiseScoreList.hashCode());
+		result = prime * result + ((activity == null) ? 0 : activity.hashCode());
+		result = prime * result + ((attemptTestPaperList == null) ? 0 : attemptTestPaperList.hashCode());
+		result = prime * result + ((friends == null) ? 0 : friends.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (Id != other.Id)
+			return false;
+		if (TestPaperList == null) {
+			if (other.TestPaperList != null)
+				return false;
+		} else if (!TestPaperList.equals(other.TestPaperList))
+			return false;
+		if (TopicWiseScoreList == null) {
+			if (other.TopicWiseScoreList != null)
+				return false;
+		} else if (!TopicWiseScoreList.equals(other.TopicWiseScoreList))
+			return false;
+		if (activity == null) {
+			if (other.activity != null)
+				return false;
+		} else if (!activity.equals(other.activity))
+			return false;
+		if (attemptTestPaperList == null) {
+			if (other.attemptTestPaperList != null)
+				return false;
+		} else if (!attemptTestPaperList.equals(other.attemptTestPaperList))
+			return false;
+		if (friends == null) {
+			if (other.friends != null)
+				return false;
+		} else if (!friends.equals(other.friends))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
+			return false;
+		return true;
 	}
 
 }

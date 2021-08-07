@@ -413,8 +413,8 @@ public class UserToDb {
 		user1.setUserName("Sharif");
 		user1.setPassword("password1");
 		user1.setTestPaperList(TestPaperList);
-		user1.setattemptTestPaperList(attemptTestPaperList);
-		user1.setScoreTopic(TopicWiseScoreList);
+		user1.setAttemptTestPaperList(attemptTestPaperList);
+		user1.setTopicWiseScoreList(TopicWiseScoreList);
 
 		// user1.setFriends(friends);
 
@@ -426,8 +426,8 @@ public class UserToDb {
 		user2.setUserName("Ramesh");
 		user2.setPassword("password2");
 		user2.setTestPaperList(TestPaperList);
-		user2.setattemptTestPaperList(attemptTestPaperList);
-		user2.setScoreTopic(TopicWiseScoreList);
+		user2.setAttemptTestPaperList(attemptTestPaperList);
+		user2.setTopicWiseScoreList(TopicWiseScoreList);
 //		 user2.setFriends(friends);
 
 		em.merge(user2);
@@ -437,8 +437,8 @@ public class UserToDb {
 		user3.setUserName("Nilesh");
 		user3.setPassword("password3");
 		user3.setTestPaperList(TestPaperList);
-		user3.setattemptTestPaperList(attemptTestPaperList);
-		user3.setScoreTopic(TopicWiseScoreList);
+		user3.setAttemptTestPaperList(attemptTestPaperList);
+		user3.setTopicWiseScoreList(TopicWiseScoreList);
 ////		user3.setFriends(friends);
 //
 		em.merge(user3);

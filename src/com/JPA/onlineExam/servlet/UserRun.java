@@ -18,8 +18,7 @@
 //		em.getTransaction().begin();
 //
 //		User b = new User();
-//		Book c = new Book("The Sun");
-//		Book d = new Book("The rainbow");
+//		User c = new User()
 //
 //		BookRepositoryImpl bookImpl = new BookRepositoryImpl(em);
 //
